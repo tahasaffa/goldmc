@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
     body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; }
@@ -78,7 +81,7 @@
       padding: 30px 25px;
       border-radius: 12px;
       width: 100%;
-      max-width: 420px;
+      max-width: 500px;
       box-shadow: 0 0 30px rgba(255, 111, 97, 0.5);
       position: relative;
       direction: rtl;
@@ -87,7 +90,7 @@
     }
 
     .modal h2 {
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       color: #ff6f61;
       text-align: center;
       font-weight: 700;
@@ -122,15 +125,16 @@
       font-size: 14px;
       margin-bottom: 6px;
     }
-    input, select {
+    input, textarea {
       padding: 10px 15px;
       border-radius: 6px;
       border: 1.8px solid #ccc;
       font-size: 15px;
       outline: none;
       transition: border-color 0.3s ease;
+      width: 100%;
     }
-    input:focus, select:focus {
+    input:focus, textarea:focus {
       border-color: #ff6f61;
       box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
     }
@@ -150,6 +154,19 @@
     .pay-btn:hover {
       background: #e55b50;
     }
+
+    /* Info Box for instructions */
+    .info-box {
+      background-color: #e6fffa;
+      padding: 10px 15px;
+      border: 1px solid #b2f5ea;
+      border-radius: 6px;
+      color: #2c7a7b;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
   </style>
 </head>
 <body>
@@ -235,49 +252,32 @@
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
-  <!-- Modal for payment -->
+  <!-- Modal for Asia Hawala Payment -->
   <div class="modal-bg" id="modalBg">
-    <div class="modal">
+    <div class="modal animate__animated animate__zoomIn">
       <button class="close-btn" id="closeModalBtn">&times;</button>
-      <h2>ادخل معلومات الدفع</h2>
-      <form id="paymentForm">
+      <h2>الدفع عبر آسيا حوالة</h2>
+      <div class="info-box">
+        يرجى إرسال المبلغ إلى الرقم: <strong>07748511132</strong><br>
+        بعد الإرسال، املأ النموذج أدناه وسيتم التواصل معك بعد التأكيد.
+      </div>
+      <form id="paymentForm" action="https://formspree.io/f/xovljpvw" method="POST">
         <label for="productName">المنتج</label>
-        <input type="text" id="productName" name="productName" readonly />
+        <input type="text" id="productName" name="المنتج" readonly />
 
         <label for="price">السعر (USD)</label>
-        <input type="text" id="price" name="price" readonly />
+        <input type="text" id="price" name="السعر" readonly />
 
         <label for="fullname">الاسم الكامل</label>
-        <input type="text" id="fullname" name="fullname" required placeholder="اسمك الكامل" />
+        <input type="text" id="fullname" name="الاسم_الكامل" required placeholder="اسمك الكامل" />
 
-        <label for="cardnumber">رقم البطاقة</label>
-        <input
-          type="text"
-          id="cardnumber"
-          name="cardnumber"
-          required
-          placeholder="1234 5678 9012 3456"
-          pattern="[0-9\s]{13,19}"
-          maxlength="19"
-          inputmode="numeric"
-        />
+        <label for="phone">رقم الهاتف</label>
+        <input type="tel" id="phone" name="رقم_الهاتف" required placeholder="077XXXXXXX" />
 
-        <label for="expiry">تاريخ الانتهاء</label>
-        <input type="month" id="expiry" name="expiry" required />
+        <label for="transferCode">رقم الحوالة أو تفاصيل الدفع</label>
+        <input type="text" id="transferCode" name="تفاصيل_الحوالة" required placeholder="رقم الحوالة" />
 
-        <label for="cvv">رمز الأمان</label>
-        <input
-          type="password"
-          id="cvv"
-          name="cvv"
-          required
-          placeholder="CVV"
-          pattern="[0-9]{3,4}"
-          maxlength="4"
-          inputmode="numeric"
-        />
-
-        <button type="submit" class="pay-btn">ادفع الآن</button>
+        <button type="submit" class="pay-btn">إرسال الطلب</button>
       </form>
     </div>
   </div>
@@ -321,14 +321,11 @@
       paymentForm.reset();
     });
 
-    // إرسال نموذج الدفع (تجريبي فقط)
+    // عند إرسال النموذج، يمكن إضافة كود لمعالجة الطلب أو عرض رسالة نجاح
     paymentForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      alert(
-        `تم استلام طلب الدفع!\n\nالمنتج: ${productNameInput.value}\nالسعر: $${priceInput.value}\nالاسم: ${paymentForm.fullname.value}`
-      );
-
+      // هنا لا داعي لمنع الإرسال لأننا نستخدم formspree (خدمة استضافة النماذج)
+      // لكن ممكن تضيف رسالة بعد الإرسال باستخدام Formspree UI أو تحويل لصفحة شكرًا
+      alert("تم إرسال طلبك بنجاح، سوف نتواصل معك قريباً.");
       modalBg.classList.remove('active');
       paymentForm.reset();
     });
