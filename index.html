@@ -1,4 +1,3 @@
-You said:
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -9,6 +8,13 @@ You said:
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <!-- Animate.css for animations -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
     body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; }
@@ -52,13 +58,112 @@ You said:
     #contact li { margin:20px 0; }
 
     footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; }
+
+    /* Modal Background */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .modal-bg.active {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Modal Content */
+    .modal {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 30px rgba(255, 111, 97, 0.5);
+      position: relative;
+      direction: rtl;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .modal h2 {
+      margin-bottom: 25px;
+      color: #ff6f61;
+      text-align: center;
+      font-weight: 700;
+      font-size: 26px;
+    }
+
+    /* Close Button */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: #ff6f61;
+      cursor: pointer;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #e55b50;
+    }
+
+    /* Form Styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    input, select {
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 1.8px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus {
+      border-color: #ff6f61;
+      box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
+    }
+
+    /* Submit Button */
+    .pay-btn {
+      background: #ff6f61;
+      border: none;
+      color: #fff;
+      padding: 15px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .pay-btn:hover {
+      background: #e55b50;
+    }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
-    <img src="logo.png" alt="goldmc Logo">
+    <img src="logo.png" alt="goldmc Logo" />
     <div>
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
@@ -81,9 +186,6 @@ You said:
           <button>المزيد</button>
         </div>
       </div>
- 
-        </div>
-      </div>
     </div>
     <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
@@ -91,37 +193,37 @@ You said:
   </div>
 
   <!-- Products -->
-<section class="products" id="store">
-  <div class="product" data-aos="zoom-in">
-    <img src="vip.jpg" alt="VIP Rank">
-    <div class="product-info">
-      <h3>VIP Rank</h3>
-      <p>احصل على وصول حصري وميزات إضافية.</p>
-      <div class="price">$8.49</div>
-      <button class="buy-btn">شراء</button>
+  <section class="products" id="store">
+    <div class="product" data-aos="zoom-in">
+      <img src="vip.jpg" alt="VIP Rank" />
+      <div class="product-info">
+        <h3>VIP Rank</h3>
+        <p>احصل على وصول حصري وميزات إضافية.</p>
+        <div class="price">$8.49</div>
+        <button class="buy-btn" data-product="VIP Rank" data-price="8.49">شراء</button>
+      </div>
     </div>
-  </div>
 
-  <div class="product" data-aos="zoom-in" data-aos-delay="100">
-    <img src="legend.png" alt="Legend Rank">
-    <div class="product-info">
-      <h3>Legend Rank</h3>
-      <p>Summer Sales.</p>
-      <div class="price">$13.99</div>
-      <button class="buy-btn">شراء</button>
+    <div class="product" data-aos="zoom-in" data-aos-delay="100">
+      <img src="legend.png" alt="Legend Rank" />
+      <div class="product-info">
+        <h3>Legend Rank</h3>
+        <p>Summer Sales.</p>
+        <div class="price">$13.99</div>
+        <button class="buy-btn" data-product="Legend Rank" data-price="13.99">شراء</button>
+      </div>
     </div>
-  </div>
 
-  <div class="product" data-aos="zoom-in" data-aos-delay="200">
-    <img src="vip+.png" alt="VIP+ Rank">
-    <div class="product-info">
-      <h3>vip+ Rank</h3>
-      <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
-      <div class="price">$18.99</div>
-      <button class="buy-btn">شراء</button>
+    <div class="product" data-aos="zoom-in" data-aos-delay="200">
+      <img src="vip+.png" alt="VIP+ Rank" />
+      <div class="product-info">
+        <h3>vip+ Rank</h3>
+        <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
+        <div class="price">$18.99</div>
+        <button class="buy-btn" data-product="VIP+ Rank" data-price="18.99">شراء</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Contact Section -->
   <section id="contact">
@@ -140,17 +242,104 @@ You said:
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
+  <!-- Modal for payment -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal animate__animated animate__zoomIn">
+      <button class="close-btn" id="closeModalBtn">&times;</button>
+      <h2>ادخل معلومات الدفع</h2>
+      <form id="paymentForm">
+        <label for="productName">المنتج</label>
+        <input type="text" id="productName" name="productName" readonly />
+
+        <label for="price">السعر (USD)</label>
+        <input type="text" id="price" name="price" readonly />
+
+        <label for="fullname">الاسم الكامل</label>
+        <input type="text" id="fullname" name="fullname" required placeholder="اسمك الكامل" />
+
+        <label for="cardnumber">رقم البطاقة</label>
+        <input
+          type="text"
+          id="cardnumber"
+          name="cardnumber"
+          required
+          placeholder="1234 5678 9012 3456"
+          pattern="[0-9\s]{13,19}"
+          maxlength="19"
+          inputmode="numeric"
+        />
+
+        <label for="expiry">تاريخ الانتهاء</label>
+        <input type="month" id="expiry" name="expiry" required />
+
+        <label for="cvv">رمز الأمان</label>
+        <input
+          type="password"
+          id="cvv"
+          name="cvv"
+          required
+          placeholder="CVV"
+          pattern="[0-9]{3,4}"
+          maxlength="4"
+          inputmode="numeric"
+        />
+
+        <button type="submit" class="pay-btn">ادفع الآن</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Swiper and AOS initialization
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
       pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     });
     AOS.init({ duration: 800, once: true });
+
+    // Modal and payment form logic
+    const modalBg = document.getElementById('modalBg');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const paymentForm = document.getElementById('paymentForm');
+    const productNameInput = document.getElementById('productName');
+    const priceInput = document.getElementById('price');
+
+    // فتح المودال عند الضغط على أي زر شراء وتعبئة بيانات المنتج
+    document.querySelectorAll('.buy-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const product = button.getAttribute('data-product');
+        const price = button.getAttribute('data-price');
+
+        productNameInput.value = product;
+        priceInput.value = price;
+
+        modalBg.classList.add('active');
+      });
+    });
+
+    // إغلاق المودال
+    closeModalBtn.addEventListener('click', () => {
+      modalBg.classList.remove('active');
+      paymentForm.reset();
+    });
+
+    // إرسال نموذج الدفع (تجريبي فقط)
+    paymentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // يمكنك هنا ربط النموذج مع بوابة دفع فعلية (Stripe، PayPal، إلخ)
+      alert(
+        `تم استلام طلب الدفع!\n\nالمنتج: ${productNameInput.value}\nالسعر: $${priceInput.value}\nالاسم: ${paymentForm.fullname.value}`
+      );
+
+      modalBg.classList.remove('active');
+      paymentForm.reset();
+    });
   </script>
 </body>
-</html>  
+</html>
