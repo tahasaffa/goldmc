@@ -8,9 +8,6 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
     body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; }
@@ -53,118 +50,29 @@
     #contact ul { list-style:none; padding:0; margin-top:20px; font-size:16px; color:#333; }
     #contact li { margin:20px 0; }
 
-    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; }
-
-    /* Modal Background */
-    .modal-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      padding: 20px;
+    /* Payment form */
+    #payment { background:#fff; padding:40px; max-width:600px; margin:40px auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+    #payment h2 { margin-bottom:30px; text-align:center; color:#333; }
+    #payment form label { display:block; margin-bottom:8px; font-weight:600; color:#555; }
+    #payment form input, 
+    #payment form select, 
+    #payment form textarea {
+      width:100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px;
+      font-size:16px; font-family: inherit;
+      transition: border-color 0.3s;
     }
-    .modal-bg.active {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
+    #payment form input:focus,
+    #payment form select:focus,
+    #payment form textarea:focus {
+      border-color:#ff6f61;
+      outline:none;
     }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    #payment form button {
+      background:#ff6f61; color:#fff; border:none; padding:15px; width:100%; font-size:18px;
+      font-weight:700; border-radius:5px; cursor:pointer; transition: background 0.3s;
     }
-
-    /* Modal Content */
-    .modal {
-      background: #fff;
-      padding: 30px 25px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 0 30px rgba(255, 111, 97, 0.5);
-      position: relative;
-      direction: rtl;
-      color: #333;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    .modal h2 {
-      margin-bottom: 15px;
-      color: #ff6f61;
-      text-align: center;
-      font-weight: 700;
-      font-size: 26px;
-    }
-
-    /* Close Button */
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      color: #ff6f61;
-      cursor: pointer;
-      font-weight: 700;
-      transition: color 0.3s ease;
-    }
-    .close-btn:hover {
-      color: #e55b50;
-    }
-
-    /* Form Styles */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    label {
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-    input, textarea {
-      padding: 10px 15px;
-      border-radius: 6px;
-      border: 1.8px solid #ccc;
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.3s ease;
-      width: 100%;
-    }
-    input:focus, textarea:focus {
-      border-color: #ff6f61;
-      box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
-    }
-
-    /* Submit Button */
-    .pay-btn {
-      background: #ff6f61;
-      border: none;
-      color: #fff;
-      padding: 15px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .pay-btn:hover {
-      background: #e55b50;
-    }
-
-    /* Info Box for instructions */
-    .info-box {
-      background-color: #e6fffa;
-      padding: 10px 15px;
-      border: 1px solid #b2f5ea;
-      border-radius: 6px;
-      color: #2c7a7b;
-      margin-bottom: 20px;
-      font-size: 15px;
-      line-height: 1.4;
+    #payment form button:hover {
+      background:#e55b50;
     }
 
   </style>
@@ -177,6 +85,7 @@
     <div>
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
+      <a href="#payment">الدفع</a>
       <a href="#contact">تواصل</a>
     </div>
   </nav>
@@ -187,13 +96,13 @@
       <div class="swiper-slide" style="background-image: url('background1.jpg')">
         <div class="slide-overlay" data-aos="fade-up">
           <h2>العروض</h2>
-          <button>اشترِ الآن</button>
+          <button onclick="scrollToPayment()">اشترِ الآن</button>
         </div>
       </div>
       <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button>المزيد</button>
+          <button onclick="scrollToProducts()">المزيد</button>
         </div>
       </div>
     </div>
@@ -210,7 +119,7 @@
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
         <div class="price">$8.49</div>
-        <button class="buy-btn" data-product="VIP Rank" data-price="8.49">شراء</button>
+        <button class="buy-btn" onclick="selectProduct('VIP Rank')">شراء</button>
       </div>
     </div>
 
@@ -220,7 +129,7 @@
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
         <div class="price">$13.99</div>
-        <button class="buy-btn" data-product="Legend Rank" data-price="13.99">شراء</button>
+        <button class="buy-btn" onclick="selectProduct('Legend Rank')">شراء</button>
       </div>
     </div>
 
@@ -230,9 +139,40 @@
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
         <div class="price">$18.99</div>
-        <button class="buy-btn" data-product="VIP+ Rank" data-price="18.99">شراء</button>
+        <button class="buy-btn" onclick="selectProduct('VIP+ Rank')">شراء</button>
       </div>
     </div>
+  </section>
+
+  <!-- Payment Form -->
+  <section id="payment">
+    <h2>نموذج دفع حوالة آسيا سيل</h2>
+    <form action="https://formspree.io/f/xovljpvw" method="POST">
+      <label for="name">الاسم الكامل:</label>
+      <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required />
+
+      <label for="email">البريد الإلكتروني:</label>
+      <input type="email" id="email" name="email" placeholder="example@example.com" required />
+
+      <label for="phone">رقم الهاتف (للتواصل):</label>
+      <input type="tel" id="phone" name="phone" placeholder="07748511132" required />
+
+      <label for="amount">المبلغ المدفوع:</label>
+      <input type="number" id="amount" name="amount" placeholder="مثلاً 10000" required min="1" />
+
+      <label for="transfer_id">رقم الحوالة:</label>
+      <input type="text" id="transfer_id" name="transfer_id" placeholder="أدخل رقم الحوالة" required />
+
+      <label for="product">المنتج المطلوب:</label>
+      <select id="product" name="product" required>
+        <option value="">اختر المنتج</option>
+        <option value="VIP Rank">VIP Rank - $8.49</option>
+        <option value="Legend Rank">Legend Rank - $13.99</option>
+        <option value="VIP+ Rank">VIP+ Rank - $18.99</option>
+      </select>
+
+      <button type="submit">إرسال الطلب</button>
+    </form>
   </section>
 
   <!-- Contact Section -->
@@ -252,83 +192,34 @@
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
-  <!-- Modal for Asia Hawala Payment -->
-  <div class="modal-bg" id="modalBg">
-    <div class="modal animate__animated animate__zoomIn">
-      <button class="close-btn" id="closeModalBtn">&times;</button>
-      <h2>الدفع عبر آسيا حوالة</h2>
-      <div class="info-box">
-        يرجى إرسال المبلغ إلى الرقم: <strong>07748511132</strong><br>
-        بعد الإرسال، املأ النموذج أدناه وسيتم التواصل معك بعد التأكيد.
-      </div>
-      <form id="paymentForm" action="https://formspree.io/f/xovljpvw" method="POST">
-        <label for="productName">المنتج</label>
-        <input type="text" id="productName" name="المنتج" readonly />
-
-        <label for="price">السعر (USD)</label>
-        <input type="text" id="price" name="السعر" readonly />
-
-        <label for="fullname">الاسم الكامل</label>
-        <input type="text" id="fullname" name="الاسم_الكامل" required placeholder="اسمك الكامل" />
-
-        <label for="phone">رقم الهاتف</label>
-        <input type="tel" id="phone" name="رقم_الهاتف" required placeholder="077XXXXXXX" />
-
-        <label for="transferCode">رقم الحوالة أو تفاصيل الدفع</label>
-        <input type="text" id="transferCode" name="تفاصيل_الحوالة" required placeholder="رقم الحوالة" />
-
-        <button type="submit" class="pay-btn">إرسال الطلب</button>
-      </form>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Swiper and AOS initialization
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
       pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
     AOS.init({ duration: 800, once: true });
 
-    // Modal and payment form logic
-    const modalBg = document.getElementById('modalBg');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const paymentForm = document.getElementById('paymentForm');
-    const productNameInput = document.getElementById('productName');
-    const priceInput = document.getElementById('price');
+    // Scroll to payment section
+    function scrollToPayment() {
+      document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+    }
 
-    // فتح المودال عند الضغط على أي زر شراء وتعبئة بيانات المنتج
-    document.querySelectorAll('.buy-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const product = button.getAttribute('data-product');
-        const price = button.getAttribute('data-price');
+    // Scroll to products section
+    function scrollToProducts() {
+      document.getElementById('store').scrollIntoView({ behavior: 'smooth' });
+    }
 
-        productNameInput.value = product;
-        priceInput.value = price;
-
-        modalBg.classList.add('active');
-      });
-    });
-
-    // إغلاق المودال
-    closeModalBtn.addEventListener('click', () => {
-      modalBg.classList.remove('active');
-      paymentForm.reset();
-    });
-
-    // عند إرسال النموذج، يمكن إضافة كود لمعالجة الطلب أو عرض رسالة نجاح
-    paymentForm.addEventListener('submit', (e) => {
-      // هنا لا داعي لمنع الإرسال لأننا نستخدم formspree (خدمة استضافة النماذج)
-      // لكن ممكن تضيف رسالة بعد الإرسال باستخدام Formspree UI أو تحويل لصفحة شكرًا
-      alert("تم إرسال طلبك بنجاح، سوف نتواصل معك قريباً.");
-      modalBg.classList.remove('active');
-      paymentForm.reset();
-    });
+    // Select product and set in form dropdown
+    function selectProduct(productName) {
+      const select = document.getElementById('product');
+      select.value = productName;
+      scrollToPayment();
+    }
   </script>
 </body>
 </html>
