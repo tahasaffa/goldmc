@@ -2,120 +2,364 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>goldmc Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #1e1e2f, #292942);
-      color: #fff;
-    }
-
-    header {
-      background-color: #11172a;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-      color: #00f5d4;
-    }
-
-    .products {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #000, #1a1a1a, #333);
+      cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1163.cur'), auto;
+      color: #eee;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      gap: 25px;
-      padding: 50px 20px;
+      flex-direction: column;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #111;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       flex-wrap: wrap;
     }
-
-    .product {
-      background: #2d2d44;
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      width: 220px;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .navbar img {
+      height: 40px;
+    }
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .navbar a {
+      color: #fff;
       text-decoration: none;
+      font-weight: 600;
+      transition: color .3s;
+    }
+    .navbar a:hover {
+      color: #ff6f61;
+    }
+    .currency-select {
+      background-color: #222;
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .currency-select:hover {
+      background-color: #ff6f61;
       color: #fff;
     }
-
-    .product:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    .swiper-container {
+      width: 100%;
+      height: 400px;
+      margin: 20px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(255, 111, 97, 0.3);
     }
-
+    .swiper-slide {
+      position: relative;
+      background-position: center;
+      background-size: cover;
+      border-radius: 15px;
+    }
+    .slide-overlay {
+      position: absolute;
+      bottom: 40px;
+      right: 30px;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,.7);
+      font-weight: 700;
+    }
+    .slide-overlay h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+    .slide-overlay button {
+      background: #ff6f61;
+      border: none;
+      padding: 12px 25px;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background .3s, transform .3s;
+      font-weight: 700;
+    }
+    .slide-overlay button:hover {
+      background: #e55b50;
+      transform: scale(1.1);
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 40px 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      background: #222;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(255,111,97,0.4);
+      transition: transform .4s, box-shadow .4s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(255,111,97,0.6);
+    }
     .product img {
-      max-width: 100%;
-      height: 180px;
+      width: 100%;
+      height: 200px;
       object-fit: cover;
-      border-radius: 12px;
+      transition: transform .4s ease, filter .3s ease;
+      border-bottom: 3px solid #ff6f61;
+      border-radius: 15px 15px 0 0;
+    }
+    .product:hover img {
+      transform: scale(1.05) rotate(1deg);
+      filter: brightness(1.2);
+    }
+    .product-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-info h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+      color: #ff6f61;
+      letter-spacing: 1px;
+    }
+    .product-info p {
+      flex-grow: 1;
+      font-size: 15px;
+      color: #ddd;
+      line-height: 1.5;
       margin-bottom: 15px;
     }
-
-    .product h3 {
-      margin: 10px 0 5px;
-      color: #00f5d4;
-      font-size: 1.2em;
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ff6f61;
+      margin-bottom: 15px;
     }
-
-    .product p {
-      margin: 0;
-      color: #ffcb74;
-      font-size: 1em;
+    .buy-btn {
+      background: #ff6f61;
+      border: none;
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      transition: background .3s, transform .3s;
+      width: 100%;
     }
-
-    footer {
+    .buy-btn:hover {
+      background: #e55b50;
+      transform: scale(1.05);
+    }
+    #contact {
+      background: #222;
+      padding: 50px 20px;
       text-align: center;
-      padding: 15px;
-      background-color: #11172a;
-      margin-top: 50px;
-      color: #888;
+      max-width: 900px;
+      margin: 60px auto 0 auto;
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(255,111,97,0.3);
+      color: #eee;
+    }
+    #contact h2 {
+      font-size: 32px;
+      margin-bottom: 25px;
+      color: #ff6f61;
+      letter-spacing: 1px;
+    }
+    #contact p {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+    #contact ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ddd;
+    }
+    #contact li {
+      margin: 20px 0;
+      transition: color .3s;
+      cursor: default;
+    }
+    #contact li:hover {
+      color: #ff6f61;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
       font-size: 14px;
+      margin-top: 60px;
+      letter-spacing: 1px;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>متجر goldmc لشراء الرتب</h1>
-  </header>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <img src="logo.png" alt="goldmc Logo" />
+    <div class="navbar-links">
+      <a href="#home">الرئيسية</a>
+      <a href="#store">المتجر</a>
+      <a href="#contact">تواصل</a>
+      <select id="currency" class="currency-select" title="اختيار العملة">
+        <option value="USD" selected>💵 دولار</option>
+        <option value="EUR">💶 يورو</option>
+        <option value="SAR">🇸🇦 ريال</option>
+        <option value="IQD">🇮🇶 دينار</option>
+      </select>
+    </div>
+  </nav>
 
-  <div class="products">
-    <a href="details.html?product=vip" class="product">
-      <img src="vip.jpg" alt="VIP" />
-      <h3>VIP</h3>
-      <p>$1.99</p>
-    </a>
-
-    <a href="details.html?product=vipplus" class="product">
-      <img src="vip+.jpg" alt="VIP+" />
-      <h3>VIP+</h3>
-      <p>$4.99</p>
-    </a>
-
-    <a href="details.html?product=legend" class="product">
-      <img src="legend.jpg" alt="Legend" />
-      <h3>Legend</h3>
-      <p>$9.99</p>
-    </a>
-
-    <a href="details.html?product=ivip" class="product">
-      <img src="ivip.jpg" alt="iVIP" />
-      <h3>iVIP</h3>
-      <p>$2.99</p>
-    </a>
+  <!-- Slider -->
+  <div class="swiper-container" id="home">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" style="background-image: url('background1.jpg')">
+        <div class="slide-overlay" data-aos="fade-up">
+          <h2>العروض</h2>
+          <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">اشترِ الآن</button>
+        </div>
+      </div>
+      <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
+        <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
+          <h2>استكشف</h2>
+          <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">المزيد</button>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 
+  <!-- Products -->
+  <section class="products" id="store">
+    <div class="product" data-aos="zoom-in">
+      <img src="vip.jpg" alt="VIP Rank" />
+      <div class="product-info">
+        <h3>VIP Rank</h3>
+        <p>احصل على وصول حصري وميزات إضافية.</p>
+        <div class="price" data-usd="8.49">$8.49</div>
+        <form action="product.html" method="get" target="_blank">
+          <input type="hidden" name="product" value="VIP Rank" />
+          <input type="hidden" name="price" value="8.49" />
+          <input type="submit" class="buy-btn" value="شراء" />
+        </form>
+      </div>
+    </div>
+    <div class="product" data-aos="zoom-in" data-aos-delay="100">
+      <img src="vip+.jpg" alt="VIP+ Rank" />
+      <div class="product-info">
+        <h3>VIP+ Rank</h3>
+        <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
+        <div class="price" data-usd="13.99">$13.99</div>
+        <form action="product.html" method="get" target="_blank">
+          <input type="hidden" name="product" value="VIP+ Rank" />
+          <input type="hidden" name="price" value="13.99" />
+          <input type="submit" class="buy-btn" value="شراء" />
+        </form>
+      </div>
+    </div>
+    <div class="product" data-aos="zoom-in" data-aos-delay="200">
+      <img src="legend.jpg" alt="Legend Rank" />
+      <div class="product-info">
+        <h3>Legend Rank</h3>
+        <p>Summer Sales.</p>
+        <div class="price" data-usd="18.99">$18.99</div>
+        <form action="product.html" method="get" target="_blank">
+          <input type="hidden" name="product" value="Legend Rank" />
+          <input type="hidden" name="price" value="18.99" />
+          <input type="submit" class="buy-btn" value="شراء" />
+        </form>
+      </div>
+    </div>
+    <div class="product" data-aos="zoom-in" data-aos-delay="300">
+      <img src="ivip.jpg" alt="ivip" />
+      <div class="product-info">
+        <h3>ivip</h3>
+        <p>احصل على ميزات خاصة بسعر مميز.</p>
+        <div class="price" data-usd="2.99">$2.99</div>
+        <form action="product.html" method="get" target="_blank">
+          <input type="hidden" name="product" value="ivip" />
+          <input type="hidden" name="price" value="2.99" />
+          <input type="submit" class="buy-btn" value="شراء" />
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>تواصل معنا</h2>
+    <p>لأي استفسار أو مساعدة، يمكنك التواصل عبر الإيميلات التالية:</p>
+    <ul>
+      <li>📧 support@goldmc.store</li>
+      <li>📧 sales@goldmc.store</li>
+      <li>📧 help@goldmc.store</li>
+      <li>📧 admin@goldmc.store</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    جميع الحقوق محفوظة © 2025 goldmc
+    &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+    });
+    AOS.init({ duration: 800, once: true });
+    const exchangeRates = { USD:1, EUR:0.91, IQD:1310, SAR:3.75 };
+    const currencySymbol = { USD:"$", EUR:"€", IQD:"ع.د", SAR:"ر.س" };
+    document.getElementById('currency').addEventListener('change', function(){
+      document.querySelectorAll('.price').forEach(el=>{
+        const usd = parseFloat(el.getAttribute('data-usd'));
+        el.textContent = `${currencySymbol[this.value]} ${(usd*exchangeRates[this.value]).toFixed(2)}`;
+      });
+    });
+  </script>
 </body>
 </html>
