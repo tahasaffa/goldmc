@@ -3,158 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تفاصيل المنتج</title>
+  <title>goldmc Store</title>
   <style>
     body {
-      background: linear-gradient(135deg, #1f1f1f, #121212);
+      font-family: 'Tahoma', sans-serif;
+      margin: 0;
+      background: #1e1e2f;
       color: #fff;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      animation: fadeInUp 1s ease forwards;
-    }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
-    .container {
-      background: #222;
-      border-radius: 15px;
-      max-width: 700px;
-      width: 100%;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      padding: 40px 60px;
+      max-width: 1300px;
+      margin: auto;
     }
 
-    .product-image {
-      max-width: 300px;
-      margin: 0 auto 25px auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-      transition: transform 0.5s ease;
-      animation: imagePop 1s ease forwards;
-    }
-
-    @keyframes imagePop {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .product-image:hover {
-      transform: scale(1.05) rotate(3deg);
-      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.9);
-    }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-      color: #ffd700;
-      letter-spacing: 1.2px;
-    }
-
-    .description {
-      font-size: 18px;
-      color: #ddd;
-      line-height: 1.5;
-      margin-bottom: 25px;
-      min-height: 100px;
-      padding: 0 15px;
-    }
-
-    .price {
-      font-size: 28px;
-      font-weight: bold;
-      color: #ff6f61;
-      margin-bottom: 25px;
-    }
-
-    .back-btn {
-      background-color: #ffd700;
-      border: none;
-      padding: 12px 30px;
-      font-weight: bold;
-      color: #000;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
+    .product {
       text-decoration: none;
-      display: inline-block;
-    }
-    .back-btn:hover {
-      background-color: #e6c200;
+      color: #fff;
+      background: #292942;
+      padding: 20px;
+      border-radius: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
     }
 
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .product img {
+      max-width: 100%;
+      height: 200px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 <body>
-  <div class="container" id="product-container">
-    <img src="" alt="صورة المنتج" class="product-image" id="product-img" />
-    <h1 id="product-name">جارٍ التحميل...</h1>
-    <div class="description" id="product-description">يرجى الانتظار...</div>
-    <div class="price" id="product-price"></div>
-    <a href="index.html" class="back-btn">عودة إلى المتجر</a>
+
+  <div class="products">
+    <a href="details.html?product=vip" class="product">
+      <img src="vip.jpg" alt="VIP" />
+      <h3>VIP</h3>
+      <p>$1.99</p>
+    </a>
+    <a href="details.html?product=vipplus" class="product">
+      <img src="vip+.jpg" alt="VIP+" />
+      <h3>VIP+</h3>
+      <p>$4.99</p>
+    </a>
+    <a href="details.html?product=legend" class="product">
+      <img src="legend.jpg" alt="Legend" />
+      <h3>Legend</h3>
+      <p>$9.99</p>
+    </a>
+    <a href="details.html?product=ivip" class="product">
+      <img src="ivip.jpg" alt="iVIP" />
+      <h3>iVIP</h3>
+      <p>$2.99</p>
+    </a>
   </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const product = urlParams.get('product');
-
-    // بيانات افتراضية للمنتجات مع الوصف والسعر (يمكنك تعديلها)
-    const productsData = {
-      "VIP": {
-        desc: "احصل على وصول حصري وميزات إضافية مميزة لرتبة VIP.",
-        priceUSD: 4.99
-      },
-      "VIP+": {
-        desc: "ارتقِ في الرتب مع المزيد من الامتيازات والفوائد الخاصة برتبة VIP+.",
-        priceUSD: 7.99
-      },
-      "Legend": {
-        desc: "رتبة Legend تمنحك قوة إضافية ومزايا استثنائية داخل اللعبة.",
-        priceUSD: 12.99
-      },
-      "ivip": {
-        desc: "رتبة ivip بسعر مميز تمنحك تجربة لعب محسنة وميزات حصرية.",
-        priceUSD: 2.99
-      }
-    };
-
-    function formatPrice(usdPrice) {
-      return `$${usdPrice.toFixed(2)}`;
-    }
-
-    if (product && productsData[product]) {
-      document.getElementById("product-name").textContent = product;
-      document.getElementById("product-description").textContent = productsData[product].desc;
-      document.getElementById("product-price").textContent = formatPrice(productsData[product].priceUSD);
-      document.getElementById("product-img").src = product.toLowerCase() + ".jpg";
-      document.getElementById("product-img").alt = product + " صورة المنتج";
-    } else {
-      document.getElementById("product-name").textContent = "منتج غير معروف";
-      document.getElementById("product-description").textContent = "عذراً، لم يتم العثور على تفاصيل لهذا المنتج.";
-      document.getElementById("product-price").textContent = "";
-      document.getElementById("product-img").src = "default.jpg"; // صورة افتراضية
-      document.getElementById("product-img").alt = "صورة افتراضية";
-    }
+    // مثال: يمكنك استخدام هذا الكود في صفحة details.html لاحقًا لقراءة الرابط
+    // const params = new URLSearchParams(window.location.search);
+    // const product = params.get('product');
+    // ثم عرض التفاصيل حسب المنتج
   </script>
+
 </body>
 </html>
