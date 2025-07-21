@@ -14,10 +14,9 @@
     }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      /* جعل الخلفية أغمق وأكثر أسودادًا */
-      background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
+      background: linear-gradient(135deg, #000, #1a1a1a, #333);
       cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1163.cur'), auto;
-      color: #eee; /* لون النص فاتح ليتناسب مع الخلفية الداكنة */
+      color: #eee;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -65,7 +64,6 @@
       background-color: #ff6f61;
       color: #fff;
     }
-
     .swiper-container {
       width: 100%;
       height: 400px;
@@ -85,7 +83,7 @@
       bottom: 40px;
       right: 30px;
       color: #fff;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+      text-shadow: 0 2px 5px rgba(0,0,0,.7);
       font-weight: 700;
     }
     .slide-overlay h2 {
@@ -101,27 +99,26 @@
       font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
-      transition: background .3s, transform 0.3s;
+      transition: background .3s, transform .3s;
       font-weight: 700;
     }
     .slide-overlay button:hover {
       background: #e55b50;
       transform: scale(1.1);
     }
-
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 30px;
       padding: 40px 60px;
       max-width: 1200px;
       margin: auto;
     }
     .product {
-      background: #222; /* خلفية المنتجات داكنة لتتناسب مع الخلفية */
+      background: #222;
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.4);
+      box-shadow: 0 4px 15px rgba(255,111,97,0.4);
       transition: transform .4s, box-shadow .4s;
       display: flex;
       flex-direction: column;
@@ -129,13 +126,13 @@
     }
     .product:hover {
       transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+      box-shadow: 0 8px 25px rgba(255,111,97,0.6);
     }
     .product img {
       width: 100%;
       height: 200px;
       object-fit: cover;
-      transition: transform 0.4s ease, filter 0.3s ease;
+      transition: transform .4s ease, filter .3s ease;
       border-bottom: 3px solid #ff6f61;
       border-radius: 15px 15px 0 0;
     }
@@ -178,14 +175,13 @@
       cursor: pointer;
       font-weight: 700;
       font-size: 16px;
-      transition: background .3s, transform 0.3s;
+      transition: background .3s, transform .3s;
       width: 100%;
     }
     .buy-btn:hover {
       background: #e55b50;
       transform: scale(1.05);
     }
-
     #contact {
       background: #222;
       padding: 50px 20px;
@@ -193,7 +189,7 @@
       max-width: 900px;
       margin: 60px auto 0 auto;
       border-radius: 15px;
-      box-shadow: 0 6px 25px rgba(255, 111, 97, 0.3);
+      box-shadow: 0 6px 25px rgba(255,111,97,0.3);
       color: #eee;
     }
     #contact h2 {
@@ -216,13 +212,12 @@
     }
     #contact li {
       margin: 20px 0;
-      transition: color 0.3s;
+      transition: color .3s;
       cursor: default;
     }
     #contact li:hover {
       color: #ff6f61;
     }
-
     footer {
       background: #111;
       color: #fff;
@@ -259,13 +254,13 @@
       <div class="swiper-slide" style="background-image: url('background1.jpg')">
         <div class="slide-overlay" data-aos="fade-up">
           <h2>العروض</h2>
-          <button>اشترِ الآن</button>
+          <button onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">اشترِ الآن</button>
         </div>
       </div>
       <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button>المزيد</button>
+          <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">المزيد</button>
         </div>
       </div>
     </div>
@@ -276,7 +271,6 @@
 
   <!-- Products -->
   <section class="products" id="store">
-
     <div class="product" data-aos="zoom-in">
       <img src="vip.jpg" alt="VIP Rank" />
       <div class="product-info">
@@ -290,7 +284,6 @@
         </form>
       </div>
     </div>
-
     <div class="product" data-aos="zoom-in" data-aos-delay="100">
       <img src="legend.jpg" alt="Legend Rank" />
       <div class="product-info">
@@ -304,7 +297,6 @@
         </form>
       </div>
     </div>
-
     <div class="product" data-aos="zoom-in" data-aos-delay="200">
       <img src="vip+.jpg" alt="VIP+ Rank" />
       <div class="product-info">
@@ -318,7 +310,6 @@
         </form>
       </div>
     </div>
-
     <div class="product" data-aos="zoom-in" data-aos-delay="300">
       <img src="ivip.jpg" alt="ivip" />
       <div class="product-info">
@@ -332,10 +323,9 @@
         </form>
       </div>
     </div>
-
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact -->
   <section id="contact">
     <h2>تواصل معنا</h2>
     <p>لأي استفسار أو مساعدة، يمكنك التواصل عبر الإيميلات التالية:</p>
@@ -352,7 +342,6 @@
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
@@ -363,27 +352,12 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
     AOS.init({ duration: 800, once: true });
-
-    const exchangeRates = {
-      USD: 1,
-      EUR: 0.91,
-      IQD: 1310,
-      SAR: 3.75
-    };
-
-    const currencySymbol = {
-      USD: "$",
-      EUR: "€",
-      IQD: "ع.د",
-      SAR: "ر.س"
-    };
-
-    document.getElementById('currency').addEventListener('change', function () {
-      const selectedCurrency = this.value;
-      document.querySelectorAll('.price').forEach(el => {
-        const usdValue = parseFloat(el.getAttribute('data-usd'));
-        const converted = usdValue * exchangeRates[selectedCurrency];
-        el.textContent = `${currencySymbol[selectedCurrency]} ${converted.toFixed(2)}`;
+    const exchangeRates = { USD:1, EUR:0.91, IQD:1310, SAR:3.75 };
+    const currencySymbol = { USD:"$", EUR:"€", IQD:"ع.د", SAR:"ر.س" };
+    document.getElementById('currency').addEventListener('change', function(){
+      document.querySelectorAll('.price').forEach(el=>{
+        const usd = parseFloat(el.getAttribute('data-usd'));
+        el.textContent = `${currencySymbol[this.value]} ${(usd*exchangeRates[this.value]).toFixed(2)}`;
       });
     });
   </script>
