@@ -14,9 +14,10 @@
     }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: linear-gradient(135deg, #fff6f5, #ffe3e0, #ffd4cc);
+      /* جعل الخلفية أغمق وأكثر أسودادًا */
+      background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
       cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1163.cur'), auto;
-      color: #222;
+      color: #eee; /* لون النص فاتح ليتناسب مع الخلفية الداكنة */
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -117,10 +118,10 @@
       margin: auto;
     }
     .product {
-      background: #fff;
+      background: #222; /* خلفية المنتجات داكنة لتتناسب مع الخلفية */
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.2);
+      box-shadow: 0 4px 15px rgba(255, 111, 97, 0.4);
       transition: transform .4s, box-shadow .4s;
       display: flex;
       flex-direction: column;
@@ -128,7 +129,7 @@
     }
     .product:hover {
       transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.4);
+      box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
     }
     .product img {
       width: 100%;
@@ -140,7 +141,7 @@
     }
     .product:hover img {
       transform: scale(1.05) rotate(1deg);
-      filter: brightness(1.1);
+      filter: brightness(1.2);
     }
     .product-info {
       padding: 20px;
@@ -158,7 +159,7 @@
     .product-info p {
       flex-grow: 1;
       font-size: 15px;
-      color: #555;
+      color: #ddd;
       line-height: 1.5;
       margin-bottom: 15px;
     }
@@ -186,13 +187,14 @@
     }
 
     #contact {
-      background: #fff;
+      background: #222;
       padding: 50px 20px;
       text-align: center;
       max-width: 900px;
       margin: 60px auto 0 auto;
       border-radius: 15px;
-      box-shadow: 0 6px 25px rgba(255, 111, 97, 0.2);
+      box-shadow: 0 6px 25px rgba(255, 111, 97, 0.3);
+      color: #eee;
     }
     #contact h2 {
       font-size: 32px;
@@ -202,7 +204,7 @@
     }
     #contact p {
       font-size: 18px;
-      color: #444;
+      color: #ccc;
       margin-bottom: 25px;
     }
     #contact ul {
@@ -210,7 +212,7 @@
       padding: 0;
       margin-top: 20px;
       font-size: 18px;
-      color: #333;
+      color: #ddd;
     }
     #contact li {
       margin: 20px 0;
