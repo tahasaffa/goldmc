@@ -2,194 +2,229 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GoldMC Store</title>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تفاصيل المنتج</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+      color: #fff;
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background-color: #111;
-      color: #fff;
-      animation: fadeIn 1s ease-in-out;
-      overflow-x: hidden;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .navbar {
-      background-color: #1c1c1c;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: #ffd700;
-    }
-
-    #currency {
-      padding: 7px 12px;
-      background: #ffd700;
-      border: none;
-      border-radius: 6px;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .container {
       padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      animation: fadeInUp 1s ease forwards;
     }
-
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .container {
+      background: #222;
+      border-radius: 20px;
+      max-width: 750px;
+      width: 100%;
+      padding: 40px 30px;
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      animation: containerPop 0.8s ease forwards;
+    }
+    @keyframes containerPop {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .image-wrapper {
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.8);
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+      animation: imageFadeIn 1s ease forwards;
+      position: relative;
+      background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+    }
+    .image-wrapper:hover {
+      box-shadow: 0 12px 45px rgba(255, 215, 0, 1);
+    }
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 25px;
+      transition: transform 0.5s ease;
+    }
+    .image-wrapper:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+    @keyframes imageFadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: textFadeIn 1.2s ease forwards;
+    }
+    @keyframes textFadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
     h1 {
-      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
       color: #ffd700;
-      margin-bottom: 30px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #ffd700;
     }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    .product {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-      transition: transform 0.3s;
-    }
-
-    .product:hover {
-      transform: translateY(-8px);
-    }
-
-    .product h2 {
-      font-size: 22px;
-      color: #fff;
-    }
-
-    .price {
+    .description {
       font-size: 20px;
-      color: #ffd700;
-      margin: 10px 0;
+      color: #eee;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      min-height: 120px;
     }
-
-    .buy-btn {
-      padding: 10px 20px;
+    .price {
+      font-size: 30px;
+      font-weight: 700;
+      color: #ff6f61;
+      margin-bottom: 35px;
+      text-shadow: 0 0 8px #ff6f61;
+    }
+    .back-btn {
       background-color: #ffd700;
-      color: #000;
       border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      padding: 15px 45px;
+      font-weight: 700;
+      color: #000;
+      border-radius: 12px;
       cursor: pointer;
       transition: background 0.3s;
+      text-decoration: none;
+      max-width: fit-content;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.7);
+      user-select: none;
+    }
+    .back-btn:hover {
+      background-color: #e6c200;
+      box-shadow: 0 7px 20px rgba(230, 194, 0, 0.9);
     }
 
-    .buy-btn:hover {
-      background-color: #e6c200;
+    /* Responsive */
+    @media (max-width: 850px) {
+      .container {
+        flex-direction: column;
+        padding: 30px 20px;
+      }
+      .image-wrapper {
+        width: 90vw;
+        height: 300px;
+      }
+      .details {
+        margin-top: 30px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 30px;
+      }
+      .description {
+        font-size: 18px;
+        min-height: auto;
+      }
+      .price {
+        font-size: 26px;
+      }
+      .back-btn {
+        padding: 12px 30px;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div>
-      <a href="#">الرئيسية</a>
-      <a href="#">المتجر</a>
-      <a href="#">تواصل</a>
+  <div class="container" id="product-container">
+    <div class="image-wrapper" title="صورة المنتج">
+      <img src="" alt="صورة المنتج" class="product-image" id="product-img" />
     </div>
-    <select id="currency">
-      <option value="USD" selected>💵 دولار أمريكي</option>
-      <option value="EUR">💶 يورو</option>
-      <option value="SAR">🇸🇦 ريال سعودي</option>
-      <option value="IQD">🇮🇶 دينار عراقي</option>
-    </select>
-  </nav>
-
-  <div class="container">
-    <h1 data-aos="fade-up">مرحباً بك في متجر GoldMC</h1>
-    <div class="products">
-      <div class="product" data-aos="zoom-in">
-        <h2>VIP</h2>
-        <div class="price" data-usd="4.99">$4.99</div>
-        <button class="buy-btn" onclick="goToDetails('VIP')">شراء</button>
-      </div>
-
-      <div class="product" data-aos="zoom-in" data-aos-delay="100">
-        <h2>VIP+</h2>
-        <div class="price" data-usd="7.99">$7.99</div>
-        <button class="buy-btn" onclick="goToDetails('VIP+')">شراء</button>
-      </div>
-
-      <div class="product" data-aos="zoom-in" data-aos-delay="200">
-        <h2>Legend</h2>
-        <div class="price" data-usd="12.99">$12.99</div>
-        <button class="buy-btn" onclick="goToDetails('Legend')">شراء</button>
-      </div>
-
-      <div class="product" data-aos="zoom-in" data-aos-delay="300">
-        <h2>ivip</h2>
-        <div class="price" data-usd="2.99">$2.99</div>
-        <button class="buy-btn" onclick="goToDetails('ivip')">شراء</button>
-      </div>
+    <div class="details">
+      <h1 id="product-name">جارٍ التحميل...</h1>
+      <div class="description" id="product-description">يرجى الانتظار...</div>
+      <div class="price" id="product-price"></div>
+      <a href="index.html" class="back-btn">عودة إلى المتجر</a>
     </div>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
+    const urlParams = new URLSearchParams(window.location.search);
+    const product = urlParams.get('product');
 
-    const exchangeRates = {
-      USD: 1,
-      EUR: 0.91,
-      SAR: 3.75,
-      IQD: 1310
+    // بيانات افتراضية للمنتجات مع الوصف والسعر (يمكنك تعديلها)
+    const productsData = {
+      "VIP": {
+        desc: "احصل على وصول حصري وميزات إضافية مميزة لرتبة VIP.",
+        priceUSD: 4.99
+      },
+      "VIP+": {
+        desc: "ارتقِ في الرتب مع المزيد من الامتيازات والفوائد الخاصة برتبة VIP+.",
+        priceUSD: 7.99
+      },
+      "Legend": {
+        desc: "رتبة Legend تمنحك قوة إضافية ومزايا استثنائية داخل اللعبة.",
+        priceUSD: 12.99
+      },
+      "ivip": {
+        desc: "رتبة ivip بسعر مميز تمنحك تجربة لعب محسنة وميزات حصرية.",
+        priceUSD: 2.99
+      }
     };
 
-    const currencySymbols = {
-      USD: "$",
-      EUR: "€",
-      SAR: "ر.س",
-      IQD: "ع.د"
-    };
+    function formatPrice(usdPrice) {
+      return `$${usdPrice.toFixed(2)}`;
+    }
 
-    document.getElementById("currency").addEventListener("change", function () {
-      const selected = this.value;
-      document.querySelectorAll(".price").forEach(priceEl => {
-        const usd = parseFloat(priceEl.getAttribute("data-usd"));
-        const converted = usd * exchangeRates[selected];
-        priceEl.textContent = `${currencySymbols[selected]} ${converted.toFixed(2)}`;
-      });
-    });
-
-    function goToDetails(productName) {
-      // ارسل الاسم عبر عنوان الرابط أو sessionStorage حسب حاجتك
-      window.location.href = `details.html?product=${encodeURIComponent(productName)}`;
+    if (product && productsData[product]) {
+      document.getElementById("product-name").textContent = product;
+      document.getElementById("product-description").textContent = productsData[product].desc;
+      document.getElementById("product-price").textContent = formatPrice(productsData[product].priceUSD);
+      document.getElementById("product-img").src = product.toLowerCase() + ".jpg";
+      document.getElementById("product-img").alt = product + " صورة المنتج";
+    } else {
+      document.getElementById("product-name").textContent = "منتج غير معروف";
+      document.getElementById("product-description").textContent = "عذراً، لم يتم العثور على تفاصيل لهذا المنتج.";
+      document.getElementById("product-price").textContent = "";
+      document.getElementById("product-img").src = "default.jpg";
+      document.getElementById("product-img").alt = "صورة افتراضية";
     }
   </script>
 </body>
