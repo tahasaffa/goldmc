@@ -1,173 +1,196 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GoldMC Store</title>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        background-color: #121212;
-        color: #fff;
-        animation: fadeIn 1s ease-in-out;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoldMC Store</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #111;
+      color: #fff;
+      animation: fadeIn 1s ease-in-out;
+      overflow-x: hidden;
+    }
 
-      .navbar {
-        background-color: #1e1e1e;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-      .navbar a {
-        color: #fff;
-        text-decoration: none;
-        margin: 0 15px;
-        font-weight: bold;
-        transition: color 0.3s;
-      }
+    .navbar {
+      background-color: #1c1c1c;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
 
-      .navbar a:hover {
-        color: #ffd700;
-      }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
-      #currency {
-        padding: 7px 12px;
-        background: #ffd700;
-        border: none;
-        border-radius: 6px;
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
+    .navbar a:hover {
+      color: #ffd700;
+    }
 
-      #currency:hover {
-        background: #e6c200;
-      }
+    #currency {
+      padding: 7px 12px;
+      background: #ffd700;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-      .container {
-        padding: 40px;
-        animation: fadeInUp 1.2s ease forwards;
-      }
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-      @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(40px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
+    h1 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 30px;
+    }
 
-      h1 {
-        text-align: center;
-        color: #ffd700;
-        margin-bottom: 30px;
-        animation: popIn 1s ease-in-out;
-      }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
 
-      @keyframes popIn {
-        from { transform: scale(0.9); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-      }
+    .product {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
 
-      .products {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-      }
+    .product:hover {
+      transform: translateY(-8px);
+    }
 
-      .product {
-        background-color: #1f1f1f;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        transition: transform 0.3s, box-shadow 0.3s;
-      }
+    .product h2 {
+      font-size: 22px;
+      color: #fff;
+    }
 
-      .product:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-      }
+    .price {
+      font-size: 20px;
+      color: #ffd700;
+      margin: 10px 0;
+    }
 
-      .product h2 {
-        font-size: 22px;
-        margin-bottom: 10px;
-        color: #fff;
-      }
+    .buy-btn {
+      padding: 10px 20px;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-      .price {
-        font-size: 20px;
-        color: #ffd700;
-        margin-top: 10px;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="navbar">
-      <div>
-        <a href="#">الرئيسية</a>
-        <a href="#">المتجر</a>
-        <a href="#">تواصل</a>
+    .buy-btn:hover {
+      background-color: #e6c200;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div>
+      <a href="#">الرئيسية</a>
+      <a href="#">المتجر</a>
+      <a href="#">تواصل</a>
+    </div>
+    <select id="currency">
+      <option value="USD" selected>💵 دولار أمريكي</option>
+      <option value="EUR">💶 يورو</option>
+      <option value="SAR">🇸🇦 ريال سعودي</option>
+      <option value="IQD">🇮🇶 دينار عراقي</option>
+    </select>
+  </nav>
+
+  <div class="container">
+    <h1 data-aos="fade-up">مرحباً بك في متجر GoldMC</h1>
+    <div class="products">
+      <div class="product" data-aos="zoom-in">
+        <h2>VIP</h2>
+        <div class="price" data-usd="4.99">$4.99</div>
+        <button class="buy-btn" onclick="goToDetails('VIP')">شراء</button>
       </div>
-      <div>
-        <select id="currency">
-          <option value="USD" selected>💵 دولار أمريكي</option>
-          <option value="EUR">💶 يورو</option>
-          <option value="SAR">🇸🇦 ريال سعودي</option>
-          <option value="IQD">🇮🇶 دينار عراقي</option>
-        </select>
-      </div>
-    </nav>
 
-    <div class="container">
-      <h1>منتجاتنا</h1>
-      <div class="products">
-        <div class="product">
-          <h2>iVIP</h2>
-          <div class="price" data-usd="8.49">$8.49</div>
-        </div>
-        <div class="product">
-          <h2>VIP</h2>
-          <div class="price" data-usd="13.99">$13.99</div>
-        </div>
-        <div class="product">
-          <h2>MVP</h2>
-          <div class="price" data-usd="18.99">$18.99</div>
-        </div>
+      <div class="product" data-aos="zoom-in" data-aos-delay="100">
+        <h2>VIP+</h2>
+        <div class="price" data-usd="7.99">$7.99</div>
+        <button class="buy-btn" onclick="goToDetails('VIP+')">شراء</button>
+      </div>
+
+      <div class="product" data-aos="zoom-in" data-aos-delay="200">
+        <h2>Legend</h2>
+        <div class="price" data-usd="12.99">$12.99</div>
+        <button class="buy-btn" onclick="goToDetails('Legend')">شراء</button>
+      </div>
+
+      <div class="product" data-aos="zoom-in" data-aos-delay="300">
+        <h2>ivip</h2>
+        <div class="price" data-usd="2.99">$2.99</div>
+        <button class="buy-btn" onclick="goToDetails('ivip')">شراء</button>
       </div>
     </div>
+  </div>
 
-    <script>
-      const exchangeRates = {
-        USD: 1,
-        EUR: 0.91,
-        IQD: 1310,
-        SAR: 3.75
-      };
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
 
-      const currencySymbol = {
-        USD: "$",
-        EUR: "€",
-        IQD: "ع.د",
-        SAR: "ر.س"
-      };
+    const exchangeRates = {
+      USD: 1,
+      EUR: 0.91,
+      SAR: 3.75,
+      IQD: 1310
+    };
 
-      document.getElementById('currency').addEventListener('change', function () {
-        const selectedCurrency = this.value;
-        document.querySelectorAll('.price').forEach(el => {
-          const usdValue = parseFloat(el.getAttribute('data-usd'));
-          const converted = usdValue * exchangeRates[selectedCurrency];
-          el.textContent = `${currencySymbol[selectedCurrency]} ${converted.toFixed(2)}`;
-        });
+    const currencySymbols = {
+      USD: "$",
+      EUR: "€",
+      SAR: "ر.س",
+      IQD: "ع.د"
+    };
+
+    document.getElementById("currency").addEventListener("change", function () {
+      const selected = this.value;
+      document.querySelectorAll(".price").forEach(priceEl => {
+        const usd = parseFloat(priceEl.getAttribute("data-usd"));
+        const converted = usd * exchangeRates[selected];
+        priceEl.textContent = `${currencySymbols[selected]} ${converted.toFixed(2)}`;
       });
-    </script>
-  </body>
+    });
+
+    function goToDetails(productName) {
+      // ارسل الاسم عبر عنوان الرابط أو sessionStorage حسب حاجتك
+      window.location.href = `details.html?product=${encodeURIComponent(productName)}`;
+    }
+  </script>
+</body>
 </html>
