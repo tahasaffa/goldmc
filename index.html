@@ -2,69 +2,70 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>goldmc Store</title>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
     }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: linear-gradient(135deg, #1e1e1e, #121212);
-      color: #eee;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
       cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1163.cur'), auto;
+      color: #222;
       min-height: 100vh;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
-    /* Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px 30px;
-      background: #111;
+      background: #1a202c;
       position: sticky;
       top: 0;
       z-index: 1000;
       flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     .navbar img {
-      height: 50px;
-      filter: drop-shadow(0 0 5px gold);
+      height: 45px;
+      filter: drop-shadow(1px 1px 2px #0006);
     }
     .navbar-links {
       display: flex;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
     .navbar a {
-      color: #eee;
-      font-weight: 600;
-      font-size: 17px;
+      color: #f7fafc;
       text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background 0.3s, color 0.3s;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
     }
     .navbar a:hover {
-      background: #ff6f61;
-      color: white;
+      color: #ff6f61;
     }
+
     .currency-select {
-      background-color: #222;
-      color: #fff;
+      background-color: #2d3748;
+      color: #f7fafc;
       border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: bold;
       font-size: 15px;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(255,111,97,0.6);
-      transition: background 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      transition: background-color 0.3s ease;
     }
     .currency-select:hover {
       background-color: #ff6f61;
@@ -73,11 +74,13 @@
     /* Slider */
     .swiper-container {
       width: 100%;
+      max-width: 1200px;
       height: 420px;
-      margin: 30px 0;
+      margin: 30px auto;
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: #fff;
     }
     .swiper-slide {
       position: relative;
@@ -86,224 +89,216 @@
     }
     .slide-overlay {
       position: absolute;
-      bottom: 50px;
+      bottom: 40px;
       right: 40px;
       color: #fff;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.7);
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
       max-width: 350px;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      animation: slideFadeIn 1.5s ease forwards;
-      opacity: 0;
+      animation: slideFadeIn 1.2s ease forwards;
+    }
+    @keyframes slideFadeIn {
+      0% {opacity: 0; transform: translateY(20px);}
+      100% {opacity: 1; transform: translateY(0);}
     }
     .slide-overlay h2 {
-      font-size: 44px;
+      font-size: 40px;
       margin-bottom: 15px;
+      font-weight: 900;
       letter-spacing: 2px;
-      font-weight: 700;
-      color: gold;
-      text-shadow: 0 0 10px #ffba00;
     }
     .slide-overlay button {
       background: #ff6f61;
       border: none;
-      padding: 14px 35px;
+      padding: 14px 32px;
       color: #fff;
       font-size: 18px;
-      border-radius: 30px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 700;
-      box-shadow: 0 6px 15px rgba(255, 111, 97, 0.7);
-      transition: background 0.4s, transform 0.3s;
+      box-shadow: 0 4px 15px #ff6f61aa;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     .slide-overlay button:hover {
       background: #e55b50;
-      transform: scale(1.1);
-    }
-    .swiper-slide-active .slide-overlay {
-      opacity: 1;
-    }
-    @keyframes slideFadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
+      transform: scale(1.05);
     }
 
     /* Products Grid */
     .products {
-      max-width: 1100px;
-      margin: 0 auto 60px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
+      max-width: 1200px;
+      margin: 40px auto 60px;
       padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
-
-    /* Each Product Card */
-    .product {
-      background: #222;
-      border-radius: 16px;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-      padding-bottom: 25px;
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       cursor: default;
     }
-    .product:hover {
+    .product-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       cursor: pointer;
     }
 
-    /* Image Container for nice frame */
-    .product-image-container {
-      width: 100%;
+    .product-image {
       height: 220px;
       overflow: hidden;
-      border-bottom: 2px solid gold;
-      border-radius: 16px 16px 0 0;
-      box-shadow: inset 0 0 15px #ffba00;
-      position: relative;
-      background: linear-gradient(135deg, #444 20%, #222 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: inset 0 0 15px #ff6f61aa;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-image img {
+      transform: scale(1.1) rotate(2deg);
+      filter: brightness(1.1);
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0 0 20px 20px;
+      transition: transform 0.5s ease;
     }
 
-    .product-image-container img {
-      max-height: 180px;
-      max-width: 90%;
-      object-fit: contain;
-      transition: transform 0.5s ease, filter 0.3s ease;
-      filter: drop-shadow(0 0 6px gold);
-    }
-    .product:hover .product-image-container img {
-      transform: scale(1.15) rotate(3deg);
-      filter: drop-shadow(0 0 12px gold);
-    }
-
-    /* Product Info */
     .product-info {
-      padding: 20px 25px 0;
+      padding: 20px 25px;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      min-height: 165px;
+      justify-content: space-between;
     }
     .product-info h3 {
-      font-size: 24px;
-      color: gold;
-      letter-spacing: 0.7px;
-      font-weight: 700;
-      user-select: none;
+      font-size: 22px;
+      font-weight: 900;
+      color: #1a202c;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-align: center;
     }
     .product-info p {
+      color: #4a5568;
+      font-size: 15px;
       flex-grow: 1;
-      font-size: 16px;
-      color: #ccc;
+      margin-bottom: 20px;
       line-height: 1.4;
-      user-select: none;
+      text-align: center;
     }
     .price {
       font-size: 22px;
       font-weight: 700;
       color: #ff6f61;
-      user-select: none;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 1px;
     }
-
-    /* Buy Button */
     .buy-btn {
-      background: linear-gradient(90deg, #ff6f61, #ff8f7a);
+      background: #ff6f61;
       border: none;
-      color: white;
-      padding: 14px 0;
-      border-radius: 50px;
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: 700;
-      font-size: 18px;
-      box-shadow: 0 5px 15px rgba(255,111,97,0.6);
-      transition: background 0.4s, transform 0.3s;
-      user-select: none;
+      font-size: 17px;
+      letter-spacing: 1px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      display: block;
       width: 100%;
+      text-align: center;
+      box-shadow: 0 6px 15px #ff6f61aa;
     }
     .buy-btn:hover {
-      background: linear-gradient(90deg, #e55b50, #e5765a);
-      transform: scale(1.07);
-      box-shadow: 0 8px 20px rgba(229, 91, 80, 0.9);
+      background: #e55b50;
+      transform: scale(1.05);
     }
 
     /* Contact */
     #contact {
-      background: #222;
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: 0 auto 50px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+      background: #fff;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 40px 30px;
       text-align: center;
-      color: #eee;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+      color: #2d3748;
     }
     #contact h2 {
       font-size: 32px;
-      margin-bottom: 30px;
-      color: gold;
-      letter-spacing: 1.3px;
-      text-shadow: 0 0 6px #ffba00;
+      font-weight: 900;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      color: #1a202c;
     }
     #contact p {
       font-size: 18px;
       margin-bottom: 30px;
-      color: #ccc;
+      color: #4a5568;
     }
     #contact ul {
       list-style: none;
-      font-size: 18px;
-      color: #ffd700;
-      display: inline-block;
-      text-align: right;
       padding: 0;
+      display: inline-block;
+      text-align: left;
+      font-size: 18px;
+      color: #2d3748;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
-    #contact li {
-      margin: 15px 0;
-      user-select: text;
+    #contact ul li {
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    /* Footer */
     footer {
-      background: #111;
-      color: #ccc;
+      background: #1a202c;
+      color: #f7fafc;
       text-align: center;
-      padding: 22px 10px;
-      font-size: 15px;
-      font-weight: 500;
-      user-select: none;
-      border-top: 1px solid #333;
-      letter-spacing: 0.7px;
+      padding: 20px 15px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      box-shadow: inset 0 1px 5px #00000055;
     }
 
-    /* Animations on page load */
-    [data-aos] {
-      opacity: 0;
-      transform: translateY(30px);
-      transition-property: opacity, transform;
-      transition-duration: 0.8s;
-      transition-timing-function: ease-out;
-    }
-    [data-aos].aos-animate {
-      opacity: 1;
-      transform: translateY(0);
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .navbar-links {
+        justify-content: center;
+        gap: 10px;
+      }
+      .swiper-container {
+        height: 300px;
+      }
+      .slide-overlay h2 {
+        font-size: 28px;
+      }
+      .slide-overlay button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      .products {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
-    <img src="logo.png" alt="goldmc Logo" />
+  <nav class="navbar" role="navigation" aria-label="القائمة الرئيسية">
+    <img src="logo.png" alt="شعار goldmc" />
     <div class="navbar-links">
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
@@ -318,95 +313,93 @@
   </nav>
 
   <!-- Slider -->
-  <div class="swiper-container" id="home">
+  <div class="swiper-container" id="home" aria-label="شريط العروض">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image: url('background1.jpg')">
+      <div class="swiper-slide" style="background-image: url('background1.jpg')" role="group" aria-label="العرض الأول">
         <div class="slide-overlay" data-aos="fade-up">
           <h2>العروض</h2>
-          <button>اشترِ الآن</button>
+          <button onclick="alert('ابدأ الشراء من المتجر!')">اشترِ الآن</button>
         </div>
       </div>
-      <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
+      <div class="swiper-slide" style="background-image: url('aboutus.jpg')" role="group" aria-label="العرض الثاني">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button>المزيد</button>
+          <button onclick="alert('اكتشف المزيد قريباً!')">المزيد</button>
         </div>
       </div>
     </div>
     <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next" aria-label="التالي"></div>
+    <div class="swiper-button-prev" aria-label="السابق"></div>
   </div>
 
-  <!-- Products -->
-  <section class="products" id="store">
-    <!-- VIP -->
-    <div class="product" data-aos="zoom-in">
-      <div class="product-image-container">
+  <!-- Products Section -->
+  <section class="products" id="store" aria-label="قسم المنتجات">
+
+    <article class="product-card" data-aos="zoom-in" data-aos-delay="0">
+      <div class="product-image">
         <img src="vip.jpg" alt="VIP Rank" />
       </div>
       <div class="product-info">
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
-        <div class="price" data-usd="8.49">$8.49</div>
+        <div class="price" data-usd="8.49">💵 8.49</div>
         <form action="details.html" method="get">
           <input type="hidden" name="product" value="VIP" />
-          <button type="submit" class="buy-btn">شراء</button>
+          <button class="buy-btn" type="submit">شراء</button>
         </form>
       </div>
-    </div>
+    </article>
 
-    <!-- Legend -->
-    <div class="product" data-aos="zoom-in" data-aos-delay="100">
-      <div class="product-image-container">
-        <img src="legend.png" alt="Legend Rank" />
+    <article class="product-card" data-aos="zoom-in" data-aos-delay="100">
+      <div class="product-image">
+        <img src="legend.jpg" alt="Legend Rank" />
       </div>
       <div class="product-info">
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
-        <div class="price" data-usd="13.99">$13.99</div>
+        <div class="price" data-usd="13.99">💵 13.99</div>
         <form action="details.html" method="get">
           <input type="hidden" name="product" value="Legend" />
-          <button type="submit" class="buy-btn">شراء</button>
+          <button class="buy-btn" type="submit">شراء</button>
         </form>
       </div>
-    </div>
+    </article>
 
-    <!-- VIP+ -->
-    <div class="product" data-aos="zoom-in" data-aos-delay="200">
-      <div class="product-image-container">
-        <img src="vip+.png" alt="VIP+ Rank" />
+    <article class="product-card" data-aos="zoom-in" data-aos-delay="200">
+      <div class="product-image">
+        <img src="vip+.jpg" alt="VIP+ Rank" />
       </div>
       <div class="product-info">
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
-        <div class="price" data-usd="18.99">$18.99</div>
+        <div class="price" data-usd="18.99">💵 18.99</div>
         <form action="details.html" method="get">
           <input type="hidden" name="product" value="VIP+" />
-          <button type="submit" class="buy-btn">شراء</button>
+          <button class="buy-btn" type="submit">شراء</button>
         </form>
       </div>
-    </div>
+    </article>
 
-    <!-- ivip -->
-    <div class="product" data-aos="zoom-in" data-aos-delay="300">
-      <div class="product-image-container">
+    <article class="product-card" data-aos="zoom-in" data-aos-delay="300">
+      <div class="product-image">
         <img src="ivip.jpg" alt="ivip Rank" />
       </div>
       <div class="product-info">
         <h3>ivip</h3>
-        <p>رتبة ivip بسعر مميز تمنحك تجربة لعب محسنة وميزات حصرية.</p>
-        <div class="price" data-usd="2.99">$2.99</div>
+        <p>احصل على الرتبة الخاصة بأسعار ممتازة.</p>
+        <div class="price" data-usd="2.99">💵 2.99</div>
         <form action="details.html" method="get">
           <input type="hidden" name="product" value="ivip" />
-          <button type="submit" class="buy-btn">شراء</button>
+          <button class="buy-btn" type="submit">شراء</button>
         </form>
       </div>
-    </div>
+    </article>
+
   </section>
 
   <!-- Contact Section -->
-  <section id="contact">
+  <section id="contact" aria-label="قسم التواصل">
     <h2>تواصل معنا</h2>
     <p>لأي استفسار أو مساعدة، يمكنك التواصل عبر الإيميلات التالية:</p>
     <ul>
@@ -426,14 +419,18 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // تهيئة السلايدر
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
       pagination: { el: '.swiper-pagination', clickable: true },
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
+
+    // تهيئة انميشن AOS
     AOS.init({ duration: 900, once: true });
 
+    // أسعار الصرف
     const exchangeRates = {
       USD: 1,
       EUR: 0.91,
@@ -442,12 +439,13 @@
     };
 
     const currencySymbol = {
-      USD: "$",
-      EUR: "€",
+      USD: "💵",
+      EUR: "💶",
       IQD: "ع.د",
       SAR: "ر.س"
     };
 
+    // تغيير العملة وتحديث الأسعار
     document.getElementById('currency').addEventListener('change', function () {
       const selectedCurrency = this.value;
       document.querySelectorAll('.price').forEach(el => {
