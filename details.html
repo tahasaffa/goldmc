@@ -1,116 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <title>تفاصيل المنتج - goldmc Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Multi-language Code Viewer</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #1a1a2e;
-      color: #eaeaea;
-      padding: 40px;
-    }
-
-    h1 {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
       text-align: center;
-      margin-bottom: 50px;
-      color: #00f5d4;
     }
-
-    .card {
-      background: #232946;
+    .product-details {
+      max-width: 600px;
+      margin: auto;
+      background: #1c1c1c;
       border-radius: 15px;
       padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px #0ff3;
     }
-
-    .card h2 {
-      color: #ffcb74;
-      margin-bottom: 15px;
+    .product-details img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin-bottom: 20px;
     }
-
-    pre {
-      background: #121629;
-      padding: 15px;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: Consolas, monospace;
-      font-size: 14px;
-      color: #00ffab;
+    .product-details h2 {
+      font-size: 28px;
+      color: #0ff;
     }
-
-    code {
-      white-space: pre-wrap;
+    .product-details p {
+      font-size: 18px;
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+    .buy-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 18px;
+      background: #0ff;
+      color: #000;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .buy-btn:hover {
+      background: #00bcd4;
     }
   </style>
 </head>
 <body>
-
-  <h1>💻 Multi-Language Code Showcase</h1>
-
-  <div class="card">
-    <h2>HTML</h2>
-    <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;Hello HTML&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Welcome to HTML!&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+  <div class="product-details">
+    <img id="product-img" src="" alt="صورة المنتج">
+    <h2 id="product-name">...</h2>
+    <p id="product-description">...</p>
+    <p id="product-price">...</p>
+    <a href="#" class="buy-btn">شراء الآن</a>
   </div>
 
-  <div class="card">
-    <h2>CSS</h2>
-    <pre><code>body {
-  background-color: #222;
-  color: white;
-  font-family: Arial;
-}</code></pre>
-  </div>
+  <script>
+    const productData = {
+      vip: {
+        name: "الرتبة VIP",
+        description: "استمتع بمزايا حصرية داخل السيرفر مثل الطيران، وألوان مخصصة والمزيد!",
+        price: "2.99 دولار",
+        image: "vip.jpg"
+      },
+      "vip+": {
+        name: "الرتبة VIP+",
+        description: "مستوى أعلى من VIP! مزايا إضافية مثل الدخول الفوري والخصومات داخل المتجر.",
+        price: "4.99 دولار",
+        image: "vip+.jpg"
+      },
+      legend: {
+        name: "الرتبة Legend",
+        description: "أقوى رتبة في السيرفر! تحكم كامل وامتيازات لا محدودة لجميع الألعاب والمودات.",
+        price: "9.99 دولار",
+        image: "legend.jpg"
+      },
+      ivip: {
+        name: "الرتبة iVIP",
+        description: "رتبة جديدة كلياً بتصميم خاص ومكافآت أسبوعية! انضم للنخبة.",
+        price: "2.99 دولار",
+        image: "ivip.jpg"
+      }
+    };
 
-  <div class="card">
-    <h2>JavaScript</h2>
-    <pre><code>console.log("Hello from JavaScript!");
+    const params = new URLSearchParams(window.location.search);
+    const productKey = params.get("product");
+    const product = productData[productKey];
 
-function greet(name) {
-  return "Hello, " + name;
-}</code></pre>
-  </div>
-
-  <div class="card">
-    <h2>C</h2>
-    <pre><code>#include &lt;stdio.h&gt;
-
-int main() {
-    printf("Hello from C!\n");
-    return 0;
-}</code></pre>
-  </div>
-
-  <div class="card">
-    <h2>C++</h2>
-    <pre><code>#include &lt;iostream&gt;
-
-int main() {
-    std::cout &lt;&lt; "Hello from C++!" &lt;&lt; std::endl;
-    return 0;
-}</code></pre>
-  </div>
-
-  <div class="card">
-    <h2>C#</h2>
-    <pre><code>using System;
-
-class Program {
-    static void Main() {
-        Console.WriteLine("Hello from C#!");
+    if (product) {
+      document.getElementById("product-name").innerText = product.name;
+      document.getElementById("product-description").innerText = product.description;
+      document.getElementById("product-price").innerText = "السعر: " + product.price;
+      document.getElementById("product-img").src = product.image;
+      document.querySelector(".buy-btn").href = `checkout.html?product=${productKey}`;
+    } else {
+      document.querySelector(".product-details").innerHTML = "<h2>المنتج غير موجود</h2>";
     }
-}</code></pre>
-  </div>
-
+  </script>
 </body>
 </html>
