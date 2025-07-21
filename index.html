@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>goldmc Store</title>
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-  <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -51,10 +49,14 @@
     #contact li { margin:20px 0; }
 
     /* Payment form */
-    #payment { background:#fff; padding:40px; max-width:600px; margin:40px auto; border-radius:10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);}
+    #payment { 
+      background:#fff; padding:40px; max-width:600px; margin:40px auto; 
+      border-radius:10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      display:none; /* مخفي افتراضياً */
+    }
     #payment h2 { text-align:center; margin-bottom:25px; color:#333; }
     #payment form label { display:block; margin-bottom:8px; font-weight:600; color:#333; }
-    #payment form input, #payment form select, #payment form textarea {
+    #payment form input, #payment form select {
       width: 100%; padding:10px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px; font-size:16px;
     }
     #payment form button {
@@ -66,7 +68,6 @@
     .card-details > div { flex:1 1 48%; }
 
     footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; margin-top:50px; }
-
   </style>
 </head>
 <body>
@@ -77,7 +78,7 @@
     <div>
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
-      <a href="#payment">الدفع</a>
+      <a href="#payment" id="paymentLink" style="display:none;">الدفع</a>
       <a href="#contact">تواصل</a>
     </div>
   </nav>
@@ -88,13 +89,13 @@
       <div class="swiper-slide" style="background-image: url('background1.jpg')">
         <div class="slide-overlay" data-aos="fade-up">
           <h2>العروض</h2>
-          <button onclick="scrollToPayment()">اشترِ الآن</button>
+          <button onclick="selectProductAndShowForm('VIP Rank')">اشترِ الآن</button>
         </div>
       </div>
       <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button onclick="scrollToPayment()">المزيد</button>
+          <button onclick="selectProductAndShowForm('Legend Rank')">المزيد</button>
         </div>
       </div>
     </div>
@@ -105,33 +106,33 @@
 
   <!-- Products -->
   <section class="products" id="store">
-    <div class="product" data-aos="zoom-in" onclick="selectProduct('VIP Rank - $8.49')">
+    <div class="product" data-aos="zoom-in" onclick="selectProductAndShowForm('VIP Rank')">
       <img src="vip.jpg" alt="VIP Rank" />
       <div class="product-info">
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
         <div class="price">$8.49</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('VIP Rank - $8.49'); scrollToPayment();">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('VIP Rank');">شراء</button>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="100" onclick="selectProduct('Legend Rank - $13.99')">
+    <div class="product" data-aos="zoom-in" data-aos-delay="100" onclick="selectProductAndShowForm('Legend Rank')">
       <img src="legend.png" alt="Legend Rank" />
       <div class="product-info">
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
         <div class="price">$13.99</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('Legend Rank - $13.99'); scrollToPayment();">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('Legend Rank');">شراء</button>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="200" onclick="selectProduct('VIP+ Rank - $18.99')">
+    <div class="product" data-aos="zoom-in" data-aos-delay="200" onclick="selectProductAndShowForm('VIP+ Rank')">
       <img src="vip+.png" alt="VIP+ Rank" />
       <div class="product-info">
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
         <div class="price">$18.99</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProduct('VIP+ Rank - $18.99'); scrollToPayment();">شراء</button>
+        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('VIP+ Rank');">شراء</button>
       </div>
     </div>
   </section>
@@ -170,12 +171,7 @@
       <input type="text" id="transaction_number" name="transaction_number" placeholder="أدخل رقم الحوالة" required />
 
       <label for="product">المنتج المطلوب:</label>
-      <select id="product" name="product" required>
-        <option value="">اختر المنتج</option>
-        <option value="VIP Rank">VIP Rank - $8.49</option>
-        <option value="Legend Rank">Legend Rank - $13.99</option>
-        <option value="VIP+ Rank">VIP+ Rank - $18.99</option>
-      </select>
+      <input type="text" id="product" name="product" readonly required />
 
       <button type="submit">إرسال الطلب</button>
     </form>
@@ -198,11 +194,9 @@
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Swiper slider init
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
@@ -211,18 +205,17 @@
     });
     AOS.init({ duration: 800, once: true });
 
-    // Scroll to payment section
-    function scrollToPayment() {
-      document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+    // الدالة اللي تطلع نموذج الدفع مع تعبية المنتج
+    function selectProductAndShowForm(productName) {
+      document.getElementById('product').value = productName;
+      const paymentSection = document.getElementById('payment');
+      paymentSection.style.display = 'block';
+      paymentSection.scrollIntoView({behavior: 'smooth'});
+      // عرض رابط الدفع في navbar
+      document.getElementById('paymentLink').style.display = 'inline';
     }
 
-    // When user clicks "شراء" على منتج، يعبي الاختيار بقائمة الدفع وينزل للنموذج
-    function selectProduct(productName) {
-      const productSelect = document.getElementById('product');
-      productSelect.value = productName.split(' - ')[0]; // فقط اسم المنتج بدون السعر
-    }
-
-    // منع ارسال النموذج إلا إذا كل الحقول صحيحة
+    // منع ارسال النموذج اذا الحقول مش معبّية صح
     document.getElementById('paymentForm').addEventListener('submit', function(event) {
       if (!this.checkValidity()) {
         event.preventDefault();
