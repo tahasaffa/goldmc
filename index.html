@@ -26,14 +26,19 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      flex-wrap: wrap;
     }
     .navbar img {
       height: 40px;
     }
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
     .navbar a {
       color: #fff;
       text-decoration: none;
-      margin: 0 15px;
       font-weight: 600;
       transition: color .3s;
     }
@@ -41,10 +46,14 @@
       color: #ff6f61;
     }
 
-    .currency-selector {
-      padding: 10px 30px;
-      background: #eee;
-      text-align: left;
+    .currency-select {
+      background-color: #222;
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 14px;
     }
 
     .swiper-container {
@@ -184,23 +193,18 @@
   <!-- Navbar -->
   <nav class="navbar">
     <img src="logo.png" alt="goldmc Logo" />
-    <div>
+    <div class="navbar-links">
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
       <a href="#contact">تواصل</a>
+      <select id="currency" class="currency-select" title="اختيار العملة">
+        <option value="USD" selected>💵 دولار</option>
+        <option value="EUR">💶 يورو</option>
+        <option value="SAR">🇸🇦 ريال</option>
+        <option value="IQD">🇮🇶 دينار</option>
+      </select>
     </div>
   </nav>
-
-  <!-- Currency Selector -->
-  <div class="currency-selector">
-    <label for="currency">اختر العملة:</label>
-    <select id="currency">
-      <option value="USD" selected>دولار أمريكي (USD)</option>
-      <option value="EUR">يورو (EUR)</option>
-      <option value="IQD">دينار عراقي (IQD)</option>
-      <option value="SAR">ريال سعودي (SAR)</option>
-    </select>
-  </div>
 
   <!-- Slider -->
   <div class="swiper-container" id="home">
@@ -308,7 +312,6 @@
     });
     AOS.init({ duration: 800, once: true });
 
-    // Currency Conversion Script
     const exchangeRates = {
       USD: 1,
       EUR: 0.91,
