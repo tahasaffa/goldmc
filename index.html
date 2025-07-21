@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>goldmc Store</title>
+  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
@@ -29,7 +31,7 @@
     .products { display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:20px;padding:40px; }
     .product { background:#fff;border-radius:10px;overflow:hidden;
-      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; cursor:pointer; }
+      box-shadow:0 3px 8px rgba(0,0,0,.1);transition:transform .3s; }
     .product:hover { transform:translateY(-5px); }
     .product img { width:100%;height:200px;object-fit:cover; }
     .product-info { padding:15px; display:flex;flex-direction:column;justify-content:space-between; }
@@ -41,65 +43,14 @@
       transition:background .3s; }
     .buy-btn:hover { background:#e55b50; }
 
-    /* Payment Section */
-    #payment {
-      display:none;
-      background:#fff;
-      padding:30px;
-      max-width:500px;
-      margin: 40px auto;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,.2);
-    }
-    #payment h2 {
-      margin-bottom:20px;
-      text-align:center;
-      color:#333;
-    }
-    #payment form label {
-      display:block;
-      margin:10px 0 5px;
-      color:#555;
-    }
-    #payment form input {
-      width:100%;
-      padding:10px;
-      border:1px solid #ccc;
-      border-radius:5px;
-      font-size:16px;
-    }
-    #payment form .card-details {
-      display:flex;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-    #payment form .card-details > div {
-      flex:1;
-    }
-    #payment form button {
-      width:100%;
-      padding:12px;
-      background:#ff6f61;
-      border:none;
-      color:#fff;
-      font-size:18px;
-      font-weight:700;
-      border-radius:5px;
-      cursor:pointer;
-      transition: background .3s;
-    }
-    #payment form button:hover {
-      background:#e55b50;
-    }
-
     /* Contact */
-    #contact { background:#fff; padding:40px; text-align:center; margin-top:60px;}
+    #contact { background:#fff; padding:40px; text-align:center; }
     #contact h2 { font-size:28px; margin-bottom:20px; }
     #contact p { font-size:16px; color:#555; }
     #contact ul { list-style:none; padding:0; margin-top:20px; font-size:16px; color:#333; }
     #contact li { margin:20px 0; }
 
-    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; margin-top:60px;}
+    footer { background:#111;color:#fff;text-align:center;padding:20px;font-size:14px; }
   </style>
 </head>
 <body>
@@ -110,7 +61,6 @@
     <div>
       <a href="#home">الرئيسية</a>
       <a href="#store">المتجر</a>
-      <a href="#payment" id="paymentLink" style="display:none;">الدفع</a>
       <a href="#contact">تواصل</a>
     </div>
   </nav>
@@ -121,13 +71,13 @@
       <div class="swiper-slide" style="background-image: url('background1.jpg')">
         <div class="slide-overlay" data-aos="fade-up">
           <h2>العروض</h2>
-          <button onclick="selectProductAndShowForm('VIP Rank')">اشترِ الآن</button>
+          <button>اشترِ الآن</button>
         </div>
       </div>
       <div class="swiper-slide" style="background-image: url('aboutus.jpg')">
         <div class="slide-overlay" data-aos="fade-up" data-aos-delay="200">
           <h2>استكشف</h2>
-          <button onclick="selectProductAndShowForm('Legend Rank')">المزيد</button>
+          <button>المزيد</button>
         </div>
       </div>
     </div>
@@ -138,72 +88,58 @@
 
   <!-- Products -->
   <section class="products" id="store">
-    <div class="product" data-aos="zoom-in" onclick="selectProductAndShowForm('VIP Rank')">
+
+    <div class="product" data-aos="zoom-in">
       <img src="vip.jpg" alt="VIP Rank" />
       <div class="product-info">
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
         <div class="price">$8.49</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('VIP Rank');">شراء</button>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
+          <input type="hidden" name="item_name" value="VIP Rank" />
+          <input type="hidden" name="amount" value="8.49" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="submit" class="buy-btn" value="شراء عبر PayPal" />
+        </form>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="100" onclick="selectProductAndShowForm('Legend Rank')">
+    <div class="product" data-aos="zoom-in" data-aos-delay="100">
       <img src="legend.png" alt="Legend Rank" />
       <div class="product-info">
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
         <div class="price">$13.99</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('Legend Rank');">شراء</button>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
+          <input type="hidden" name="item_name" value="Legend Rank" />
+          <input type="hidden" name="amount" value="13.99" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="submit" class="buy-btn" value="شراء عبر PayPal" />
+        </form>
       </div>
     </div>
 
-    <div class="product" data-aos="zoom-in" data-aos-delay="200" onclick="selectProductAndShowForm('VIP+ Rank')">
+    <div class="product" data-aos="zoom-in" data-aos-delay="200">
       <img src="vip+.png" alt="VIP+ Rank" />
       <div class="product-info">
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
         <div class="price">$18.99</div>
-        <button class="buy-btn" onclick="event.stopPropagation(); selectProductAndShowForm('VIP+ Rank');">شراء</button>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
+          <input type="hidden" name="item_name" value="VIP+ Rank" />
+          <input type="hidden" name="amount" value="18.99" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="submit" class="buy-btn" value="شراء عبر PayPal" />
+        </form>
       </div>
     </div>
-  </section>
 
-  <!-- Payment Section -->
-  <section id="payment" data-aos="fade-up">
-    <h2>نموذج حوالة بطاقة ماستر / فيزا</h2>
-    <form action="https://formspree.io/f/xwpqvwva" method="POST" id="paymentForm">
-      <label for="name">الاسم الكامل:</label>
-      <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required />
-
-      <label for="email">البريد الإلكتروني:</label>
-      <input type="email" id="email" name="email" placeholder="example@example.com" required />
-
-      <label for="phone">رقم الهاتف (للتواصل):</label>
-      <input type="tel" id="phone" name="phone" placeholder="07748511132" required pattern="\d{10,15}" title="أدخل رقم هاتف صالح" />
-
-      <label for="card_number">رقم البطاقة البنكية:</label>
-      <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required pattern="\d{13,19}" title="أدخل رقم بطاقة صالح (13-19 رقم)" />
-
-      <label for="card_name">اسم صاحب البطاقة:</label>
-      <input type="text" id="card_name" name="card_name" placeholder="كما هو مكتوب على البطاقة" required />
-
-      <div class="card-details">
-        <div>
-          <label for="expiry_date">تاريخ الانتهاء:</label>
-          <input type="month" id="expiry_date" name="expiry_date" required min="2023-01" />
-        </div>
-        <div>
-          <label for="cvv">رمز الأمان (CVV):</label>
-          <input type="password" id="cvv" name="cvv" placeholder="XXX" required pattern="\d{3,4}" title="3 أو 4 أرقام" />
-        </div>
-      </div>
-
-      <label for="product">المنتج المطلوب:</label>
-      <input type="text" id="product" name="product" readonly required />
-
-      <button type="submit">إرسال الطلب</button>
-    </form>
   </section>
 
   <!-- Contact Section -->
@@ -218,10 +154,12 @@
     </ul>
   </section>
 
+  <!-- Footer -->
   <footer>
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
@@ -232,22 +170,6 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
     AOS.init({ duration: 800, once: true });
-
-    function selectProductAndShowForm(productName) {
-      document.getElementById('product').value = productName;
-      const paymentSection = document.getElementById('payment');
-      paymentSection.style.display = 'block';
-      paymentSection.scrollIntoView({behavior: 'smooth'});
-      document.getElementById('paymentLink').style.display = 'inline';
-    }
-
-    document.getElementById('paymentForm').addEventListener('submit', function(event) {
-      if (!this.checkValidity()) {
-        event.preventDefault();
-        alert('يرجى ملء جميع الحقول المطلوبة بشكل صحيح.');
-      }
-    });
   </script>
-
 </body>
 </html>
