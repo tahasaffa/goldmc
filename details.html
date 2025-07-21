@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تفاصيل المنتج</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1f1c2c;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    .details {
+      background: #2c2f48;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #00ffe7;
+    }
+    p {
+      margin-top: 1rem;
+    }
+    .buy-btn {
+      margin-top: 1.5rem;
+      background: #00ffe7;
+      color: #000;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="details">
+    <h1>تفاصيل المنتج</h1>
+    <p>تم اختيار المنتج: <span id="productName"></span></p>
+    <p>هذه صفحة توضح تفاصيل المنتج المختار، وتشمل المزايا والسعر وكل ما تحتاج معرفته.</p>
+    <a class="buy-btn" href="#">شراء الآن</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get("product");
+    document.getElementById("productName").textContent = product || "غير معروف";
+  </script>
+</body>
+</html>
