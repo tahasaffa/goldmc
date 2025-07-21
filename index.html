@@ -41,6 +41,12 @@
       color: #ff6f61;
     }
 
+    .currency-selector {
+      padding: 10px 30px;
+      background: #eee;
+      text-align: left;
+    }
+
     .swiper-container {
       width: 100%;
       height: 400px;
@@ -185,6 +191,17 @@
     </div>
   </nav>
 
+  <!-- Currency Selector -->
+  <div class="currency-selector">
+    <label for="currency">اختر العملة:</label>
+    <select id="currency">
+      <option value="USD" selected>دولار أمريكي (USD)</option>
+      <option value="EUR">يورو (EUR)</option>
+      <option value="IQD">دينار عراقي (IQD)</option>
+      <option value="SAR">ريال سعودي (SAR)</option>
+    </select>
+  </div>
+
   <!-- Slider -->
   <div class="swiper-container" id="home">
     <div class="swiper-wrapper">
@@ -214,7 +231,7 @@
       <div class="product-info">
         <h3>VIP Rank</h3>
         <p>احصل على وصول حصري وميزات إضافية.</p>
-        <div class="price">$8.49</div>
+        <div class="price" data-usd="8.49">$8.49</div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_xclick" />
           <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
@@ -231,7 +248,7 @@
       <div class="product-info">
         <h3>Legend Rank</h3>
         <p>Summer Sales.</p>
-        <div class="price">$13.99</div>
+        <div class="price" data-usd="13.99">$13.99</div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_xclick" />
           <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
@@ -248,7 +265,7 @@
       <div class="product-info">
         <h3>VIP+ Rank</h3>
         <p>ارتقِ في الرتب واحصل على امتيازات أكثر.</p>
-        <div class="price">$18.99</div>
+        <div class="price" data-usd="18.99">$18.99</div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_xclick" />
           <input type="hidden" name="business" value="tahasaffaa2@gmail.com" />
@@ -290,6 +307,30 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
     AOS.init({ duration: 800, once: true });
+
+    // Currency Conversion Script
+    const exchangeRates = {
+      USD: 1,
+      EUR: 0.91,
+      IQD: 1310,
+      SAR: 3.75
+    };
+
+    const currencySymbol = {
+      USD: "$",
+      EUR: "€",
+      IQD: "ع.د",
+      SAR: "ر.س"
+    };
+
+    document.getElementById('currency').addEventListener('change', function () {
+      const selectedCurrency = this.value;
+      document.querySelectorAll('.price').forEach(el => {
+        const usdValue = parseFloat(el.getAttribute('data-usd'));
+        const converted = usdValue * exchangeRates[selectedCurrency];
+        el.textContent = `${currencySymbol[selectedCurrency]} ${converted.toFixed(2)}`;
+      });
+    });
   </script>
 </body>
 </html>
