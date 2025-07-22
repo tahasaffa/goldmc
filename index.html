@@ -64,6 +64,50 @@
       background-color: #ff6f61;
       color: #fff;
     }
+
+    /* زر تسجيل الدخول بجوجل */
+    #google-signin-btn {
+      background: #4285F4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .3s;
+    }
+    #google-signin-btn:hover {
+      background: #357ae8;
+    }
+    #user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #eee;
+      font-weight: 700;
+    }
+    #user-info img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    #signout-btn {
+      background: #ff6f61;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background .3s;
+    }
+    #signout-btn:hover {
+      background: #e55b50;
+    }
+
     .swiper-container {
       width: 100%;
       height: 400px;
@@ -187,7 +231,7 @@
     #info-container {
       display: flex;
       justify-content: center;
-      gap: 80px; /* زيادة المسافة بين القسمين */
+      gap: 80px;
       max-width: 1200px;
       margin: 60px auto 0 auto;
       padding: 0 20px;
@@ -303,6 +347,19 @@
         <option value="SAR">🇸🇦 ريال</option>
         <option value="IQD">🇮🇶 دينار</option>
       </select>
+
+      <!-- منطقة تسجيل الدخول بجوجل -->
+      <div id="auth-area" style="margin-left: 15px;">
+        <button id="google-signin-btn" style="display:none;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" width="20" />
+          تسجيل الدخول بجوجل
+        </button>
+        <div id="user-info" style="display:none;">
+          <img id="user-pic" src="" alt="User Image" />
+          <span id="user-name"></span>
+          <button id="signout-btn">تسجيل خروج</button>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -416,18 +473,23 @@
           <li>مجتمع ودود ومتعاون</li>
         </ul>
       </p>
-      <button onclick="window.location.href='about-server.html'">اكتشف المزيد</button>
+      <button onclick="alert('شكراً لتواصلك معنا!')">انضم للسيرفر الآن</button>
     </section>
   </section>
 
-  <!-- Footer -->
   <footer>
     &copy; 2025 goldmc Store. جميع الحقوق محفوظة.
   </footer>
 
+  <!-- JS Libraries -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Google Platform Library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <script>
+    // Swiper & AOS Init
     const swiper = new Swiper('.swiper-container', {
       loop: true,
       autoplay: { delay: 4000, disableOnInteraction: false },
@@ -436,9 +498,9 @@
     });
     AOS.init({ duration: 800, once: true });
 
+    // العملات
     const exchangeRates = { USD:1, EUR:0.91, IQD:1310, SAR:3.75 };
     const currencySymbol = { USD:"$", EUR:"€", IQD:"ع.د", SAR:"ر.س" };
-
     document.getElementById('currency').addEventListener('change', function(){
       document.querySelectorAll('.price').forEach(el=>{
         const usd = parseFloat(el.getAttribute('data-usd'));
@@ -446,68 +508,76 @@
       });
     });
 
-    // عداد الزيارات: حفظ وزيادة العدد في localStorage وعرضه
+    // عداد الزيارات
     function updateVisitCount() {
       let count = localStorage.getItem('visitCount');
-      if (!count) {
-        count = 1;
-      } else {
-        count = parseInt(count) + 1;
-      }
+      if (!count) count = 1;
+      else count = parseInt(count) + 1;
       localStorage.setItem('visitCount', count);
       document.getElementById('visit-count').textContent = count;
     }
     updateVisitCount();
-  </script>
-  <script>
-  function handleGoogleSignIn(response) {
-    const payload = parseJwt(response.credential);
-    console.log("مرحبًا، تم تسجيل الدخول:", payload);
 
-    // حفظ المستخدم في localStorage (مثال)
-    localStorage.setItem("user", JSON.stringify(payload));
+    // ------------ Google Sign-In ------------
 
-    // عرض اسم المستخدم في الواجهة
-    showUserInfo(payload);
-  }
+    const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'; // غيرها بـ Client ID الحقيقي الخاص بك
 
-  function parseJwt(token) {
-    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    const json = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(json);
-  }
+    const googleSignInBtn = document.getElementById('google-signin-btn');
+    const userInfoDiv = document.getElementById('user-info');
+    const userPic = document.getElementById('user-pic');
+    const userName = document.getElementById('user-name');
+    const signOutBtn = document.getElementById('signout-btn');
 
-  function showUserInfo(user) {
-    const navbar = document.querySelector('.navbar-links');
-    const name = document.createElement('span');
-    name.textContent = `مرحبًا ${user.name}`;
-    name.style.marginRight = '10px';
-    name.style.fontWeight = 'bold';
+    // إظهار زر تسجيل الدخول بشكل افتراضي
+    googleSignInBtn.style.display = 'flex';
 
-    const logout = document.createElement('button');
-    logout.textContent = 'تسجيل الخروج';
-    logout.style.marginRight = '10px';
-    logout.style.padding = '5px 10px';
-    logout.style.cursor = 'pointer';
-    logout.onclick = function () {
-      localStorage.removeItem("user");
-      location.reload();
+    window.onload = function() {
+      google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        googleSignInBtn,
+        { theme: 'filled_blue', size: 'medium', locale: 'ar' }
+      );
+      google.accounts.id.prompt();
+      
+      // في حال المستخدم مسجل دخول سابقاً، نعرض بياناته
+      const storedUser = localStorage.getItem('googleUser');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        googleSignInBtn.style.display = 'none';
+        userPic.src = user.picture;
+        userName.textContent = user.name;
+        userInfoDiv.style.display = 'flex';
+      }
     };
 
-    document.querySelector(".g_id_signin").style.display = "none";
-    navbar.appendChild(name);
-    navbar.appendChild(logout);
-  }
+    function handleCredentialResponse(response) {
+      const userObject = parseJwt(response.credential);
+      googleSignInBtn.style.display = 'none';
+      userPic.src = userObject.picture;
+      userName.textContent = userObject.name;
+      userInfoDiv.style.display = 'flex';
 
-  // عند تحميل الصفحة، إذا كان المستخدم مسجلاً من قبل
-  window.onload = function () {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      showUserInfo(user);
+      localStorage.setItem('googleUser', JSON.stringify(userObject));
     }
-  };
-</script>
+
+    signOutBtn.onclick = () => {
+      localStorage.removeItem('googleUser');
+      googleSignInBtn.style.display = 'flex';
+      userInfoDiv.style.display = 'none';
+      google.accounts.id.prompt();
+    };
+
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+  </script>
 </body>
 </html>
