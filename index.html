@@ -459,5 +459,55 @@
     }
     updateVisitCount();
   </script>
+  <script>
+  function handleGoogleSignIn(response) {
+    const payload = parseJwt(response.credential);
+    console.log("مرحبًا، تم تسجيل الدخول:", payload);
+
+    // حفظ المستخدم في localStorage (مثال)
+    localStorage.setItem("user", JSON.stringify(payload));
+
+    // عرض اسم المستخدم في الواجهة
+    showUserInfo(payload);
+  }
+
+  function parseJwt(token) {
+    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const json = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(json);
+  }
+
+  function showUserInfo(user) {
+    const navbar = document.querySelector('.navbar-links');
+    const name = document.createElement('span');
+    name.textContent = `مرحبًا ${user.name}`;
+    name.style.marginRight = '10px';
+    name.style.fontWeight = 'bold';
+
+    const logout = document.createElement('button');
+    logout.textContent = 'تسجيل الخروج';
+    logout.style.marginRight = '10px';
+    logout.style.padding = '5px 10px';
+    logout.style.cursor = 'pointer';
+    logout.onclick = function () {
+      localStorage.removeItem("user");
+      location.reload();
+    };
+
+    document.querySelector(".g_id_signin").style.display = "none";
+    navbar.appendChild(name);
+    navbar.appendChild(logout);
+  }
+
+  // عند تحميل الصفحة، إذا كان المستخدم مسجلاً من قبل
+  window.onload = function () {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      showUserInfo(user);
+    }
+  };
+</script>
 </body>
 </html>
