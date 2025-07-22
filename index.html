@@ -276,6 +276,16 @@
         padding: 20px 15px;
       }
     }
+
+    /* عداد الزيارات */
+    #visit-counter {
+      text-align: center;
+      margin: 30px 0;
+      color: #ff6f61;
+      font-size: 22px;
+      font-weight: 700;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -373,6 +383,11 @@
     </div>
   </section>
 
+  <!-- عداد الزيارات -->
+  <section id="visit-counter" aria-live="polite">
+    عدد زيارات الموقع: <span id="visit-count">0</span>
+  </section>
+
   <!-- Contact & About Server Section -->
   <section id="info-container">
     <section id="contact" data-aos="fade-up">
@@ -420,14 +435,29 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     });
     AOS.init({ duration: 800, once: true });
+
     const exchangeRates = { USD:1, EUR:0.91, IQD:1310, SAR:3.75 };
     const currencySymbol = { USD:"$", EUR:"€", IQD:"ع.د", SAR:"ر.س" };
+
     document.getElementById('currency').addEventListener('change', function(){
       document.querySelectorAll('.price').forEach(el=>{
         const usd = parseFloat(el.getAttribute('data-usd'));
         el.textContent = `${currencySymbol[this.value]} ${(usd*exchangeRates[this.value]).toFixed(2)}`;
       });
     });
+
+    // عداد الزيارات: حفظ وزيادة العدد في localStorage وعرضه
+    function updateVisitCount() {
+      let count = localStorage.getItem('visitCount');
+      if (!count) {
+        count = 1;
+      } else {
+        count = parseInt(count) + 1;
+      }
+      localStorage.setItem('visitCount', count);
+      document.getElementById('visit-count').textContent = count;
+    }
+    updateVisitCount();
   </script>
 </body>
 </html>
