@@ -19,7 +19,7 @@
       padding: 20px;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
       background: rgba(25, 25, 35, 0.9);
       border-radius: 15px;
@@ -39,14 +39,18 @@
       text-shadow: 0 2px 5px rgba(0, 255, 231, 0.3);
     }
     .product-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #ff6f61;
       margin: 15px 0;
     }
     .price {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #00ffe7;
       margin: 15px 0;
+      background: rgba(0, 255, 231, 0.1);
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 30px;
     }
     .back-btn {
       display: inline-block;
@@ -63,82 +67,58 @@
       background: #e55b50;
       transform: translateY(-3px);
     }
-    .features-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 30px 0;
-      background: #2c2f48;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .features-table th, .features-table td {
-      padding: 15px;
-      text-align: center;
-      border: 1px solid #3d405b;
-    }
-    .features-table th {
-      background: #00ffe7;
-      color: #0f3460;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    .features-table tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.05);
-    }
-    .features-table tr:hover {
-      background: rgba(0, 255, 231, 0.1);
-    }
-    .feature-name {
-      text-align: right;
-      font-weight: bold;
-      color: #00ffe7;
-    }
-    .tick {
-      color: #4CAF50;
-      font-size: 1.2rem;
-    }
-    .package-comparison {
+    .product-details {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
-      margin: 40px 0;
-      gap: 20px;
+      gap: 30px;
+      margin: 30px 0;
     }
-    .package {
+    .product-image {
       flex: 1;
-      min-width: 250px;
-      background: #2c2f48;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s;
+      min-width: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
-    .package:hover {
-      transform: translateY(-5px);
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .package h3 {
-      color: #ff6f61;
-      margin-bottom: 15px;
-      font-size: 1.5rem;
+    .product-features {
+      flex: 1;
+      min-width: 300px;
     }
-    .package-price {
-      font-size: 1.8rem;
-      color: #00ffe7;
-      margin: 15px 0;
-    }
-    .package-features {
+    .features-list {
       list-style: none;
-      text-align: right;
       margin-top: 20px;
     }
-    .package-features li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .features-list li {
+      padding: 15px;
+      margin-bottom: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
     }
-    .package-features li:last-child {
-      border-bottom: none;
+    .features-list li:hover {
+      background: rgba(0, 255, 231, 0.1);
+      transform: translateX(-5px);
+    }
+    .features-list i {
+      margin-left: 15px;
+      color: #00ffe7;
+      font-size: 1.2rem;
+      width: 30px;
+    }
+    .feature-text {
+      flex: 1;
+    }
+    .feature-title {
+      font-weight: bold;
+      color: #ff6f61;
+      display: block;
     }
     .buy-section {
       text-align: center;
@@ -160,6 +140,22 @@
       transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(0, 255, 231, 0.6);
     }
+    .all-packages {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .all-packages a {
+      color: #00ffe7;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+    }
+    .all-packages a:hover {
+      text-decoration: underline;
+    }
     footer {
       text-align: center;
       margin-top: 40px;
@@ -168,16 +164,23 @@
       color: #aaa;
     }
     @media (max-width: 768px) {
-      .package-comparison {
+      .product-details {
         flex-direction: column;
       }
-      .features-table {
-        font-size: 0.9rem;
-      }
-      .features-table th, .features-table td {
-        padding: 10px 5px;
-      }
     }
+
+    /* أنيميشن للعناصر */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animated {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
   </style>
 </head>
 <body>
@@ -191,136 +194,15 @@
       </a>
     </header>
 
-    <section>
-      <h2 style="text-align: center; color: #00ffe7; margin-bottom: 20px;">مقارنة بين الرتب</h2>
-      <table class="features-table">
-        <thead>
-          <tr>
-            <th>الميزة</th>
-            <th>IUP 3.5$</th>
-            <th>VIP 6.5$</th>
-            <th>VIP+ 9.5$</th>
-            <th>LEGEND 13.5$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="feature-name">sethome</td>
-            <td>x3</td>
-            <td>x5</td>
-            <td>x7</td>
-            <td>x9</td>
-          </tr>
-          <tr>
-            <td class="feature-name">player vaults</td>
-            <td>x5</td>
-            <td>x9</td>
-            <td>x12</td>
-            <td>x15</td>
-          </tr>
-          <tr>
-            <td class="feature-name">player warp</td>
-            <td>x2</td>
-            <td>x3</td>
-            <td>x4</td>
-            <td>x5</td>
-          </tr>
-          <tr>
-            <td class="feature-name">commands</td>
-            <td>/spawn</td>
-            <td>/spawn, /mobs, /wb, /sc</td>
-            <td>/spawn, /mobs, /wb, /sc, /tp, /anvil</td>
-            <td>/spawn, /mobs, /wb, /sc, /tp, /anvil, /feed, /sheep</td>
-          </tr>
-          <tr>
-            <td class="feature-name">fly in claim and spawn</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-          </tr>
-          <tr>
-            <td class="feature-name">kit every week</td>
-            <td>diamond armor and tools</td>
-            <td>diamond armor and tools</td>
-            <td>netherite armor and tools</td>
-            <td>netherite armor and tools</td>
-          </tr>
-          <tr>
-            <td class="feature-name">join lightning</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-          </tr>
-          <tr>
-            <td class="feature-name">afk for key</td>
-            <td>13m</td>
-            <td>10m</td>
-            <td>8m</td>
-            <td>5m</td>
-          </tr>
-          <tr>
-            <td class="feature-name">chest shop</td>
-            <td>x7</td>
-            <td>x9</td>
-            <td>x12</td>
-            <td>x15</td>
-          </tr>
-          <tr>
-            <td class="feature-name">prefix color</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-            <td class="tick">✅</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="package-comparison">
-      <div class="package">
-        <h3>IUP</h3>
-        <div class="package-price">3.5$</div>
-        <ul class="package-features">
-          <li><i class="fas fa-home"></i> sethome: x3</li>
-          <li><i class="fas fa-archive"></i> player vaults: x5</li>
-          <li><i class="fas fa-map-marker-alt"></i> player warp: x2</li>
-          <li><i class="fas fa-terminal"></i> commands: /spawn</li>
-          <li><i class="fas fa-gift"></i> kit: diamond</li>
-        </ul>
+    <section class="product-details">
+      <div class="product-image">
+        <img id="productImage" src="" alt="صورة الرتبة">
       </div>
-      <div class="package">
-        <h3>VIP</h3>
-        <div class="package-price">6.5$</div>
-        <ul class="package-features">
-          <li><i class="fas fa-home"></i> sethome: x5</li>
-          <li><i class="fas fa-archive"></i> player vaults: x9</li>
-          <li><i class="fas fa-map-marker-alt"></i> player warp: x3</li>
-          <li><i class="fas fa-terminal"></i> commands: /spawn, /mobs, /wb, /sc</li>
-          <li><i class="fas fa-gift"></i> kit: diamond</li>
-        </ul>
-      </div>
-      <div class="package">
-        <h3>VIP+</h3>
-        <div class="package-price">9.5$</div>
-        <ul class="package-features">
-          <li><i class="fas fa-home"></i> sethome: x7</li>
-          <li><i class="fas fa-archive"></i> player vaults: x12</li>
-          <li><i class="fas fa-map-marker-alt"></i> player warp: x4</li>
-          <li><i class="fas fa-terminal"></i> commands: + /tp, /anvil</li>
-          <li><i class="fas fa-gift"></i> kit: netherite</li>
-        </ul>
-      </div>
-      <div class="package">
-        <h3>LEGEND</h3>
-        <div class="package-price">13.5$</div>
-        <ul class="package-features">
-          <li><i class="fas fa-home"></i> sethome: x9</li>
-          <li><i class="fas fa-archive"></i> player vaults: x15</li>
-          <li><i class="fas fa-map-marker-alt"></i> player warp: x5</li>
-          <li><i class="fas fa-terminal"></i> commands: + /feed, /sheep</li>
-          <li><i class="fas fa-gift"></i> kit: netherite</li>
+      
+      <div class="product-features">
+        <h2 style="color: #00ffe7; margin-bottom: 20px;">مميزات الرتبة</h2>
+        <ul class="features-list" id="featuresList">
+          <!-- سيتم ملء هذه القائمة عبر JavaScript -->
         </ul>
       </div>
     </section>
@@ -329,27 +211,135 @@
       <a href="#" class="buy-btn" id="buyButton">اشتري الآن</a>
     </section>
 
+    <div class="all-packages">
+      <a href="index.html#store">
+        <i class="fas fa-store" style="margin-left: 8px;"></i>
+        عرض جميع الرتب
+      </a>
+    </div>
+
     <footer>
       <p>© 2025 goldmc Store. جميع الحقوق محفوظة.</p>
     </footer>
   </div>
 
   <script>
+    // بيانات المنتجات
+    const products = {
+      'ivip': {
+        name: 'IVIP',
+        price: '2.99',
+        image: 'ivip.jpg',
+        features: [
+          {icon: 'fa-home', title: 'sethome', text: 'x3'},
+          {icon: 'fa-archive', title: 'player vaults', text: 'x5'},
+          {icon: 'fa-map-marker-alt', title: 'player warp', text: 'x2'},
+          {icon: 'fa-terminal', title: 'commands', text: '/spawn'},
+          {icon: 'fa-gem', title: 'kit', text: 'diamond armor and tools'},
+          {icon: 'fa-bolt', title: 'join lightning', text: '✔'},
+          {icon: 'fa-clock', title: 'afk for key', text: '13m'},
+          {icon: 'fa-store', title: 'chest shop', text: 'x7'},
+          {icon: 'fa-palette', title: 'prefix color', text: '✔'}
+        ]
+      },
+      'VIP Rank': {
+        name: 'VIP',
+        price: '8.49',
+        image: 'vip.jpg',
+        features: [
+          {icon: 'fa-home', title: 'sethome', text: 'x5'},
+          {icon: 'fa-archive', title: 'player vaults', text: 'x9'},
+          {icon: 'fa-map-marker-alt', title: 'player warp', text: 'x3'},
+          {icon: 'fa-terminal', title: 'commands', text: '/spawn, /mobs, /wb, /sc'},
+          {icon: 'fa-gem', title: 'kit', text: 'diamond armor and tools'},
+          {icon: 'fa-bolt', title: 'join lightning', text: '✔'},
+          {icon: 'fa-clock', title: 'afk for key', text: '10m'},
+          {icon: 'fa-store', title: 'chest shop', text: 'x9'},
+          {icon: 'fa-palette', title: 'prefix color', text: '✔'},
+          {icon: 'fa-feather', title: 'fly in claim and spawn', text: '✔'}
+        ]
+      },
+      'VIP+ Rank': {
+        name: 'VIP+',
+        price: '13.99',
+        image: 'vip+.jpg',
+        features: [
+          {icon: 'fa-home', title: 'sethome', text: 'x7'},
+          {icon: 'fa-archive', title: 'player vaults', text: 'x12'},
+          {icon: 'fa-map-marker-alt', title: 'player warp', text: 'x4'},
+          {icon: 'fa-terminal', title: 'commands', text: '/spawn, /mobs, /wb, /sc, /tp, /anvil'},
+          {icon: 'fa-gem', title: 'kit', text: 'netherite armor and tools'},
+          {icon: 'fa-bolt', title: 'join lightning', text: '✔'},
+          {icon: 'fa-clock', title: 'afk for key', text: '8m'},
+          {icon: 'fa-store', title: 'chest shop', text: 'x12'},
+          {icon: 'fa-palette', title: 'prefix color', text: '✔'},
+          {icon: 'fa-feather', title: 'fly in claim and spawn', text: '✔'}
+        ]
+      },
+      'Legend Rank': {
+        name: 'LEGEND',
+        price: '18.99',
+        image: 'legend.jpg',
+        features: [
+          {icon: 'fa-home', title: 'sethome', text: 'x9'},
+          {icon: 'fa-archive', title: 'player vaults', text: 'x15'},
+          {icon: 'fa-map-marker-alt', title: 'player warp', text: 'x5'},
+          {icon: 'fa-terminal', title: 'commands', text: '/spawn, /mobs, /wb, /sc, /tp, /anvil, /feed, /sheep'},
+          {icon: 'fa-gem', title: 'kit', text: 'netherite armor and tools'},
+          {icon: 'fa-bolt', title: 'join lightning', text: '✔'},
+          {icon: 'fa-clock', title: 'afk for key', text: '5m'},
+          {icon: 'fa-store', title: 'chest shop', text: 'x15'},
+          {icon: 'fa-palette', title: 'prefix color', text: '✔'},
+          {icon: 'fa-feather', title: 'fly in claim and spawn', text: '✔'}
+        ]
+      }
+    };
+
     // الحصول على معلمات URL
     const params = new URLSearchParams(window.location.search);
-    const product = params.get("product");
-    const price = params.get("price");
+    const productName = params.get("product");
+    const productPrice = params.get("price");
     
-    // عرض اسم المنتج والسعر
-    document.getElementById("productName").textContent = product || "غير معروف";
-    document.getElementById("productPrice").textContent = `السعر: $${price || "0"}`;
+    // البحث عن المنتج المناسب
+    let product = null;
+    if (productName && products[productName]) {
+      product = products[productName];
+    } else {
+      // إذا لم يتم العثور على المنتج، نستخدم الأول كافتراضي
+      product = products[Object.keys(products)[0]];
+    }
+    
+    // عرض تفاصيل المنتج
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").textContent = `$${productPrice || product.price}`;
+    document.getElementById("productImage").src = product.image;
+    document.getElementById("productImage").alt = product.name;
+    
+    // عرض الميزات
+    const featuresList = document.getElementById("featuresList");
+    product.features.forEach((feature, index) => {
+      const li = document.createElement("li");
+      li.className = `animated delay-${index % 4}`;
+      li.innerHTML = `
+        <i class="fas ${feature.icon}"></i>
+        <span class="feature-text">
+          <span class="feature-title">${feature.title}:</span> ${feature.text}
+        </span>
+      `;
+      featuresList.appendChild(li);
+    });
     
     // تحديث زر الشراء لينتقل إلى صفحة الدفع
     document.getElementById("buyButton").addEventListener("click", function(e) {
       e.preventDefault();
-      alert(`سيتم شراء ${product} بسعر $${price}`);
+      alert(`سيتم شراء ${product.name} بسعر $${productPrice || product.price}`);
       // هنا يمكنك إضافة التوجيه إلى صفحة الدفع
     });
+
+    // إذا كان السعر مختلف في URL، نستخدمه
+    if (productPrice) {
+      product.price = productPrice;
+    }
   </script>
 </body>
 </html>
