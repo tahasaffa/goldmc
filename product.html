@@ -3,52 +3,353 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تفاصيل المنتج</title>
+  <title>تفاصيل المنتج - goldmc Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #1f1c2c;
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    .details {
-      background: #2c2f48;
-      padding: 2rem;
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: #eee;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(25, 25, 35, 0.9);
       border-radius: 15px;
-      max-width: 600px;
-      margin: auto;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #00ffe7;
     }
     h1 {
       color: #00ffe7;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 5px rgba(0, 255, 231, 0.3);
     }
-    p {
-      margin-top: 1rem;
+    .product-title {
+      font-size: 2rem;
+      color: #ff6f61;
+      margin: 15px 0;
+    }
+    .price {
+      font-size: 1.8rem;
+      color: #00ffe7;
+      margin: 15px 0;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff6f61;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background: #e55b50;
+      transform: translateY(-3px);
+    }
+    .features-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      background: #2c2f48;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .features-table th, .features-table td {
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #3d405b;
+    }
+    .features-table th {
+      background: #00ffe7;
+      color: #0f3460;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .features-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .features-table tr:hover {
+      background: rgba(0, 255, 231, 0.1);
+    }
+    .feature-name {
+      text-align: right;
+      font-weight: bold;
+      color: #00ffe7;
+    }
+    .tick {
+      color: #4CAF50;
+      font-size: 1.2rem;
+    }
+    .package-comparison {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 40px 0;
+      gap: 20px;
+    }
+    .package {
+      flex: 1;
+      min-width: 250px;
+      background: #2c2f48;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+    .package:hover {
+      transform: translateY(-5px);
+    }
+    .package h3 {
+      color: #ff6f61;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    .package-price {
+      font-size: 1.8rem;
+      color: #00ffe7;
+      margin: 15px 0;
+    }
+    .package-features {
+      list-style: none;
+      text-align: right;
+      margin-top: 20px;
+    }
+    .package-features li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .package-features li:last-child {
+      border-bottom: none;
+    }
+    .buy-section {
+      text-align: center;
+      margin: 40px 0;
     }
     .buy-btn {
-      margin-top: 1.5rem;
-      background: #00ffe7;
-      color: #000;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #00ffe7, #00b3a7);
+      color: #0f3460;
       text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.4);
+    }
+    .buy-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 255, 231, 0.6);
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+    }
+    @media (max-width: 768px) {
+      .package-comparison {
+        flex-direction: column;
+      }
+      .features-table {
+        font-size: 0.9rem;
+      }
+      .features-table th, .features-table td {
+        padding: 10px 5px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="details">
-    <h1>تفاصيل المنتج</h1>
-    <p>تم اختيار المنتج: <span id="productName"></span></p>
-    <p>هذه صفحة توضح تفاصيل المنتج المختار، وتشمل المزايا والسعر وكل ما تحتاج معرفته.</p>
-    <a class="buy-btn" href="#">شراء الآن</a>
+  <div class="container">
+    <header>
+      <h1>تفاصيل الرتبة</h1>
+      <div class="product-title" id="productName">...</div>
+      <div class="price" id="productPrice">...</div>
+      <a href="javascript:history.back()" class="back-btn">
+        <i class="fas fa-arrow-right"></i> العودة إلى المتجر
+      </a>
+    </header>
+
+    <section>
+      <h2 style="text-align: center; color: #00ffe7; margin-bottom: 20px;">مقارنة بين الرتب</h2>
+      <table class="features-table">
+        <thead>
+          <tr>
+            <th>الميزة</th>
+            <th>IUP 3.5$</th>
+            <th>VIP 6.5$</th>
+            <th>VIP+ 9.5$</th>
+            <th>LEGEND 13.5$</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-name">sethome</td>
+            <td>x3</td>
+            <td>x5</td>
+            <td>x7</td>
+            <td>x9</td>
+          </tr>
+          <tr>
+            <td class="feature-name">player vaults</td>
+            <td>x5</td>
+            <td>x9</td>
+            <td>x12</td>
+            <td>x15</td>
+          </tr>
+          <tr>
+            <td class="feature-name">player warp</td>
+            <td>x2</td>
+            <td>x3</td>
+            <td>x4</td>
+            <td>x5</td>
+          </tr>
+          <tr>
+            <td class="feature-name">commands</td>
+            <td>/spawn</td>
+            <td>/spawn, /mobs, /wb, /sc</td>
+            <td>/spawn, /mobs, /wb, /sc, /tp, /anvil</td>
+            <td>/spawn, /mobs, /wb, /sc, /tp, /anvil, /feed, /sheep</td>
+          </tr>
+          <tr>
+            <td class="feature-name">fly in claim and spawn</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+          </tr>
+          <tr>
+            <td class="feature-name">kit every week</td>
+            <td>diamond armor and tools</td>
+            <td>diamond armor and tools</td>
+            <td>netherite armor and tools</td>
+            <td>netherite armor and tools</td>
+          </tr>
+          <tr>
+            <td class="feature-name">join lightning</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+          </tr>
+          <tr>
+            <td class="feature-name">afk for key</td>
+            <td>13m</td>
+            <td>10m</td>
+            <td>8m</td>
+            <td>5m</td>
+          </tr>
+          <tr>
+            <td class="feature-name">chest shop</td>
+            <td>x7</td>
+            <td>x9</td>
+            <td>x12</td>
+            <td>x15</td>
+          </tr>
+          <tr>
+            <td class="feature-name">prefix color</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+            <td class="tick">✅</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="package-comparison">
+      <div class="package">
+        <h3>IUP</h3>
+        <div class="package-price">3.5$</div>
+        <ul class="package-features">
+          <li><i class="fas fa-home"></i> sethome: x3</li>
+          <li><i class="fas fa-archive"></i> player vaults: x5</li>
+          <li><i class="fas fa-map-marker-alt"></i> player warp: x2</li>
+          <li><i class="fas fa-terminal"></i> commands: /spawn</li>
+          <li><i class="fas fa-gift"></i> kit: diamond</li>
+        </ul>
+      </div>
+      <div class="package">
+        <h3>VIP</h3>
+        <div class="package-price">6.5$</div>
+        <ul class="package-features">
+          <li><i class="fas fa-home"></i> sethome: x5</li>
+          <li><i class="fas fa-archive"></i> player vaults: x9</li>
+          <li><i class="fas fa-map-marker-alt"></i> player warp: x3</li>
+          <li><i class="fas fa-terminal"></i> commands: /spawn, /mobs, /wb, /sc</li>
+          <li><i class="fas fa-gift"></i> kit: diamond</li>
+        </ul>
+      </div>
+      <div class="package">
+        <h3>VIP+</h3>
+        <div class="package-price">9.5$</div>
+        <ul class="package-features">
+          <li><i class="fas fa-home"></i> sethome: x7</li>
+          <li><i class="fas fa-archive"></i> player vaults: x12</li>
+          <li><i class="fas fa-map-marker-alt"></i> player warp: x4</li>
+          <li><i class="fas fa-terminal"></i> commands: + /tp, /anvil</li>
+          <li><i class="fas fa-gift"></i> kit: netherite</li>
+        </ul>
+      </div>
+      <div class="package">
+        <h3>LEGEND</h3>
+        <div class="package-price">13.5$</div>
+        <ul class="package-features">
+          <li><i class="fas fa-home"></i> sethome: x9</li>
+          <li><i class="fas fa-archive"></i> player vaults: x15</li>
+          <li><i class="fas fa-map-marker-alt"></i> player warp: x5</li>
+          <li><i class="fas fa-terminal"></i> commands: + /feed, /sheep</li>
+          <li><i class="fas fa-gift"></i> kit: netherite</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="buy-section">
+      <a href="#" class="buy-btn" id="buyButton">اشتري الآن</a>
+    </section>
+
+    <footer>
+      <p>© 2025 goldmc Store. جميع الحقوق محفوظة.</p>
+    </footer>
   </div>
 
   <script>
+    // الحصول على معلمات URL
     const params = new URLSearchParams(window.location.search);
     const product = params.get("product");
+    const price = params.get("price");
+    
+    // عرض اسم المنتج والسعر
     document.getElementById("productName").textContent = product || "غير معروف";
+    document.getElementById("productPrice").textContent = `السعر: $${price || "0"}`;
+    
+    // تحديث زر الشراء لينتقل إلى صفحة الدفع
+    document.getElementById("buyButton").addEventListener("click", function(e) {
+      e.preventDefault();
+      alert(`سيتم شراء ${product} بسعر $${price}`);
+      // هنا يمكنك إضافة التوجيه إلى صفحة الدفع
+    });
   </script>
 </body>
 </html>
